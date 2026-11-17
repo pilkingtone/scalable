@@ -135,13 +135,21 @@ def compile_sources(fetched: list[tuple[dict, list[dict]]], cfg: dict, now: date
 
 def run(out_dir: Path = OUT_DIR, max_age_hours: float = 0.5) -> dict:
     cfg = json.loads(CONFIG.read_text())
+    stale = datetime.now(timezone.utc) - timedelta(days=cfg.get("max_age_days", 10))
+
     def fetch(src):
         errors = []
         for url in src.get("urls") or [src["url"]]:
             try:
-                return src, parse_feed(get(url, max_age_hours=max_age_hours, timeout=20)), None
+                items = parse_feed(get(url, max_age_hours=max_age_hours, timeout=20))
             except Exception as e:  # noqa: BLE001 - one bad feed must not sink the page
                 errors.append(str(e)[:120])
+                continue
+            # An empty or long-stale feed: try the source's next address, if it has one.
+            fresh = any(i["published"] and i["published"] >= stale for i in items)
+            if fresh or url == (src.get("urls") or [src["url"]])[-1]:
+                return src, items, None
+            errors.append(f"{url}: no recent items")
         return src, None, f"{src['name']}: {' | '.join(errors)}"
 
     # Fetch in parallel (different hosts, mostly); results keep config order.

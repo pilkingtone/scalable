@@ -70,6 +70,7 @@
       "home": "https://venturebeat.com",
       "urls": [
         "https://venturebeat.com/feed/",
+        "https://venturebeat.com/category/ai/feed/",
         "https://feeds.feedburner.com/venturebeat/SZYF"
       ]
     },
@@ -438,9 +439,9 @@
       "topic": "ideas",
       "home": "https://hbr.org",
       "urls": [
-        "https://feeds.hbr.org/harvardbusiness",
         "http://feeds.harvardbusiness.org/harvardbusiness",
-        "https://hbr.org/feed"
+        "https://hbr.org/feed",
+        "https://feeds.hbr.org/harvardbusiness"
       ]
     },
     {
