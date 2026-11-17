@@ -77,6 +77,10 @@ def parse_feed(xml: str) -> list[dict]:
         raw.append((_text(it, "title"), _text(it, "link", "guid"),
                     _text(it, "pubDate", "{http://purl.org/dc/elements/1.1/}date"),
                     _text(it, "description", "{http://purl.org/rss/1.0/modules/content/}encoded")))
+    rss1 = "{http://purl.org/rss/1.0/}"   # RSS 1.0 / RDF feeds (e.g. Slashdot)
+    for it in root.iter(f"{rss1}item"):
+        raw.append((_text(it, f"{rss1}title"), _text(it, f"{rss1}link") or it.get("{http://www.w3.org/1999/02/22-rdf-syntax-ns#}about", ""),
+                    _text(it, "{http://purl.org/dc/elements/1.1/}date"), _text(it, f"{rss1}description")))
     for it in root.iter(f"{ATOM}entry"):
         link = it.find(f"{ATOM}link[@rel='alternate']")
         if link is None:      # (an Element with no children is falsy, so no `or` here)
@@ -156,6 +160,13 @@ def run(out_dir: Path = OUT_DIR, max_age_hours: float = 0.5) -> dict:
            "ai": ai_note, "warnings": warnings}
     out_dir.mkdir(parents=True, exist_ok=True)
     (out_dir / "feeds.json").write_text(json.dumps(out))
+    # Explain feeds that loaded but produced no headlines (no items, or all too old).
+    shown = {s["name"] for s in sources if s["items"]}
+    for src, items in fetched:
+        if src["name"] not in shown:
+            newest = max((i["published"] for i in items if i["published"]), default=None)
+            warnings.append(f"{src['name']}: feed loaded but no recent headlines ({len(items)} items"
+                            + (f", newest {newest:%Y-%m-%d})" if newest else ")"))
     ok = sum(1 for s in sources if s["items"])
     print(f"[scalable] {ok}/{len(cfg['sources'])} sources with headlines, {len(stories)} stories "
           f"({sum(1 for c in stories if c['n_sources'] > 1)} covered by 2+ sources)", flush=True)

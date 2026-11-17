@@ -150,3 +150,11 @@ def test_repairs_bare_ampersands_and_control_chars():
     xml = '<rss><channel><item><title>AT&T and Q&A \x0b</title><link>https://a/1</link></item></channel></rss>'
     items = feeds.parse_feed(xml)
     assert items[0]["title"].startswith("AT&T and Q&A")
+
+
+def test_rss1_rdf_feed():
+    xml = ('<rdf:RDF xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#" xmlns="http://purl.org/rss/1.0/" '
+           'xmlns:dc="http://purl.org/dc/elements/1.1/"><item rdf:about="https://a/1"><title>Hello</title>'
+           '<link>https://a/1</link><dc:date>2026-11-17T10:00:00+00:00</dc:date></item></rdf:RDF>')
+    items = feeds.parse_feed(xml)
+    assert items[0]["title"] == "Hello" and items[0]["published"].year == 2026

@@ -104,15 +104,6 @@
       "url": "https://www.digitaltrends.com/feed/"
     },
     {
-      "name": "Gizmodo",
-      "topic": "tech",
-      "home": "https://gizmodo.com",
-      "urls": [
-        "https://gizmodo.com/feed",
-        "https://gizmodo.com/rss"
-      ]
-    },
-    {
       "name": "CNET",
       "topic": "tech",
       "home": "https://www.cnet.com",
@@ -311,12 +302,6 @@
       "url": "https://sifted.eu/feed"
     },
     {
-      "name": "Tech.eu",
-      "topic": "tech",
-      "home": "https://tech.eu",
-      "url": "https://tech.eu/feed/"
-    },
-    {
       "name": "The Decoder",
       "topic": "tech",
       "home": "https://the-decoder.com",
@@ -477,28 +462,10 @@
       "url": "https://www.mckinsey.com/insights/rss"
     },
     {
-      "name": "Stanford GSB Insights",
-      "topic": "ideas",
-      "home": "https://www.gsb.stanford.edu/insights",
-      "urls": [
-        "https://www.gsb.stanford.edu/insights/feed",
-        "https://www.gsb.stanford.edu/rss/insights"
-      ]
-    },
-    {
       "name": "Fast Company \u00b7 Leadership",
       "topic": "ideas",
       "home": "https://www.fastcompany.com/section/leadership",
       "url": "https://www.fastcompany.com/section/leadership/rss"
-    },
-    {
-      "name": "Kellogg Insight",
-      "topic": "ideas",
-      "home": "https://insight.kellogg.northwestern.edu",
-      "urls": [
-        "https://insight.kellogg.northwestern.edu/rss",
-        "https://insight.kellogg.northwestern.edu/feed"
-      ]
     },
     {
       "name": "Bloomberg Markets",
@@ -523,15 +490,6 @@
       "topic": "markets",
       "home": "https://www.marketwatch.com",
       "url": "https://feeds.content.dowjones.io/public/rss/mw_topstories"
-    },
-    {
-      "name": "Yahoo Finance",
-      "topic": "markets",
-      "home": "https://finance.yahoo.com",
-      "urls": [
-        "https://finance.yahoo.com/news/rss",
-        "https://finance.yahoo.com/rss/topstories"
-      ]
     },
     {
       "name": "Planet Money (NPR)",
@@ -565,12 +523,6 @@
       "topic": "business",
       "home": "https://www.washingtonpost.com/business/",
       "url": "https://feeds.washingtonpost.com/rss/business"
-    },
-    {
-      "name": "Forbes \u00b7 Leadership",
-      "topic": "ideas",
-      "home": "https://www.forbes.com/leadership/",
-      "url": "https://www.forbes.com/leadership/feed/"
     },
     {
       "name": "WSJ \u00b7 Markets",
