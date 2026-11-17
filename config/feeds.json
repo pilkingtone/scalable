@@ -653,15 +653,6 @@
       "url": "https://www.latimes.com/business/rss2.0.xml"
     },
     {
-      "name": "CNN Business",
-      "topic": "business",
-      "home": "https://www.cnn.com/business",
-      "urls": [
-        "http://rss.cnn.com/rss/money_latest.rss",
-        "http://rss.cnn.com/rss/edition_business.rss"
-      ]
-    },
-    {
       "name": "Fox Business",
       "topic": "business",
       "home": "https://www.foxbusiness.com",
@@ -671,7 +662,10 @@
       "name": "HuffPost \u00b7 Business",
       "topic": "business",
       "home": "https://www.huffpost.com/news/business",
-      "url": "https://www.huffpost.com/section/business/feed"
+      "urls": [
+        "https://chaski.huffpost.com/us/auto/vertical/business",
+        "https://www.huffpost.com/section/business/feed"
+      ]
     },
     {
       "name": "WSJ \u00b7 Markets",
@@ -710,7 +704,10 @@
       "name": "HuffPost",
       "topic": "news",
       "home": "https://www.huffpost.com",
-      "url": "https://www.huffpost.com/section/front-page/feed"
+      "urls": [
+        "https://chaski.huffpost.com/us/auto/vertical/front-page",
+        "https://www.huffpost.com/section/front-page/feed"
+      ]
     },
     {
       "name": "The Daily Beast",

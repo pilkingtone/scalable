@@ -158,3 +158,12 @@ def test_rss1_rdf_feed():
            '<link>https://a/1</link><dc:date>2026-11-17T10:00:00+00:00</dc:date></item></rdf:RDF>')
     items = feeds.parse_feed(xml)
     assert items[0]["title"] == "Hello" and items[0]["published"].year == 2026
+
+
+def test_loose_fallback_for_broken_xml():
+    xml = ('<rss><channel><item><title><![CDATA[Fed holds rates]]></title><link>https://a/1</link>'
+           '<pubDate>Tue, 17 Nov 2026 10:00:00 GMT</pubDate><description>x < y</description></item>'
+           '<item><title>Broken <b>tag</title><link>https://a/2</link></item></channel></rss>')
+    items = feeds.parse_feed(xml)
+    assert [i["url"] for i in items] == ["https://a/1", "https://a/2"]
+    assert items[0]["title"] == "Fed holds rates"

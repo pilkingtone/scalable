@@ -66,12 +66,39 @@ def _repair(xml: str) -> str:
     return xml.lstrip("\ufeff \t\r\n")
 
 
+def _loose_items(xml: str) -> list[dict]:
+    """Last resort for feeds too broken for an XML parser: pull fields out of each
+    <item>/<entry> with patterns. No entity expansion, so it is safe on any input."""
+    def field(block, *names):
+        for n in names:
+            m = re.search(rf"<{n}\b[^>]*?(?:/>|>(.*?)</{n}>)", block, re.S)
+            if m:
+                if n == "link" and not m.group(1):
+                    href = re.search(r'href="([^"]+)"', m.group(0))
+                    if href:
+                        return href.group(1)
+                v = re.sub(r"<!\[CDATA\[(.*?)\]\]>", r"\1", m.group(1) or "", flags=re.S).strip()
+                if v:
+                    return html.unescape(v) if n == "link" else v
+        return ""
+    out = []
+    for block in re.findall(r"<(?:item|entry)\b.*?</(?:item|entry)>", xml, re.S):
+        title, url = _clean(field(block, "title")), field(block, "link", "guid").strip()
+        if title and url.startswith(("https://", "http://")):
+            out.append({"title": title, "url": url, "published": _when(field(block, "pubDate", "published", "updated", "dc:date")),
+                        "summary": _clean(field(block, "description", "summary", "content:encoded"), 220)})
+    return sorted(out, key=lambda i: i["published"] or datetime.min.replace(tzinfo=timezone.utc), reverse=True)
+
+
 def parse_feed(xml: str) -> list[dict]:
     """Items from an RSS 2.0 or Atom feed, newest first."""
     try:
         root = ET.fromstring(xml)
     except ET.ParseError:
-        root = ET.fromstring(_repair(xml))
+        try:
+            root = ET.fromstring(_repair(xml))
+        except ET.ParseError:
+            return _loose_items(xml)
     raw = []
     for it in root.iter("item"):
         raw.append((_text(it, "title"), _text(it, "link", "guid"),
