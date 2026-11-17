@@ -1,0 +1,53 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Scalable — Top Tech &amp; Business News</title>
+  <meta name="description" content="Scalable: the top tech and business stories from the best sources, all in one place.">
+  <link rel="stylesheet" href="style.css">
+</head>
+<body>
+  <header class="site-header">
+    <div class="wrap header-row">
+      <div>
+        <h1 class="wordmark"><a href="#top">Scalable<span class="mark" aria-hidden="true"><i></i><i></i><i></i></span></a></h1>
+        <p class="tagline">The top tech and business stories, all in one place</p>
+      </div>
+      <div class="meta" id="meta" aria-live="polite"></div>
+    </div>
+  </header>
+
+  <main class="wrap">
+    <nav class="controls" aria-label="Topics">
+      <div class="seg" role="tablist" id="topic-tabs"></div>
+      <div class="filters">
+        <input type="search" id="search" placeholder="Search headlines" aria-label="Search headlines">
+      </div>
+    </nav>
+
+    <div id="empty" class="banner" hidden></div>
+
+    <section id="view-top" hidden>
+      <div class="card">
+        <h2>Latest from every source</h2>
+        <p class="sub" id="top-sub"></p>
+        <ol class="news-list" id="top-list"></ol>
+      </div>
+    </section>
+
+    <section id="view-topic" hidden>
+      <p class="sub" id="topic-sub"></p>
+      <div class="grid" id="grid"></div>
+    </section>
+  </main>
+
+  <footer class="wrap footer">
+    <p>Scalable shows each publisher's own headlines and feed summaries and links to the original articles; it doesn't copy articles. Some sources require a subscription to read in full.</p>
+    <p id="sources-note"></p>
+  </footer>
+
+  <div class="preview" id="preview" role="tooltip" hidden></div>
+  <script src="app.js"></script>
+</body>
+</html>
