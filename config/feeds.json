@@ -372,6 +372,84 @@
       "url": "https://feeds.bbci.co.uk/news/technology/rss.xml"
     },
     {
+      "name": "TechRepublic",
+      "topic": "tech",
+      "home": "https://www.techrepublic.com",
+      "url": "https://www.techrepublic.com/rssfeeds/articles/"
+    },
+    {
+      "name": "Android Central",
+      "topic": "tech",
+      "home": "https://www.androidcentral.com",
+      "url": "https://www.androidcentral.com/feed"
+    },
+    {
+      "name": "Windows Central",
+      "topic": "tech",
+      "home": "https://www.windowscentral.com",
+      "url": "https://www.windowscentral.com/feed"
+    },
+    {
+      "name": "XDA",
+      "topic": "tech",
+      "home": "https://www.xda-developers.com",
+      "url": "https://www.xda-developers.com/feed/"
+    },
+    {
+      "name": "SlashGear",
+      "topic": "tech",
+      "home": "https://www.slashgear.com",
+      "url": "https://www.slashgear.com/feed/"
+    },
+    {
+      "name": "The Hacker News",
+      "topic": "tech",
+      "home": "https://thehackernews.com",
+      "url": "https://feeds.feedburner.com/TheHackersNews"
+    },
+    {
+      "name": "Tech Xplore",
+      "topic": "tech",
+      "home": "https://techxplore.com",
+      "url": "https://techxplore.com/rss-feed/"
+    },
+    {
+      "name": "Hackaday",
+      "topic": "tech",
+      "home": "https://hackaday.com",
+      "url": "https://hackaday.com/blog/feed/"
+    },
+    {
+      "name": "NPR \u00b7 Technology",
+      "topic": "tech",
+      "home": "https://www.npr.org/sections/technology/",
+      "url": "https://feeds.npr.org/1019/rss.xml"
+    },
+    {
+      "name": "CBS News \u00b7 Technology",
+      "topic": "tech",
+      "home": "https://www.cbsnews.com/technology/",
+      "url": "https://www.cbsnews.com/latest/rss/technology"
+    },
+    {
+      "name": "ABC News \u00b7 Technology",
+      "topic": "tech",
+      "home": "https://abcnews.go.com/Technology",
+      "url": "https://abcnews.go.com/abcnews/technologyheadlines"
+    },
+    {
+      "name": "NBC News \u00b7 Tech",
+      "topic": "tech",
+      "home": "https://www.nbcnews.com/tech-media",
+      "url": "https://feeds.nbcnews.com/nbcnews/public/tech"
+    },
+    {
+      "name": "USA Today \u00b7 Tech",
+      "topic": "tech",
+      "home": "https://www.usatoday.com/tech/",
+      "url": "https://rssfeeds.usatoday.com/usatoday-techtopstories"
+    },
+    {
       "name": "The New York Times \u00b7 Business",
       "topic": "business",
       "home": "https://www.nytimes.com/section/business",
@@ -524,6 +602,48 @@
       "topic": "business",
       "home": "https://www.washingtonpost.com/business/",
       "url": "https://feeds.washingtonpost.com/rss/business"
+    },
+    {
+      "name": "NPR \u00b7 Business",
+      "topic": "business",
+      "home": "https://www.npr.org/sections/business/",
+      "url": "https://feeds.npr.org/1006/rss.xml"
+    },
+    {
+      "name": "PBS NewsHour \u00b7 Economy",
+      "topic": "business",
+      "home": "https://www.pbs.org/newshour/economy",
+      "url": "https://www.pbs.org/newshour/feeds/rss/economy"
+    },
+    {
+      "name": "CBS MoneyWatch",
+      "topic": "business",
+      "home": "https://www.cbsnews.com/moneywatch/",
+      "url": "https://www.cbsnews.com/latest/rss/moneywatch"
+    },
+    {
+      "name": "ABC News \u00b7 Business",
+      "topic": "business",
+      "home": "https://abcnews.go.com/Business",
+      "url": "https://abcnews.go.com/abcnews/moneyheadlines"
+    },
+    {
+      "name": "NBC News \u00b7 Business",
+      "topic": "business",
+      "home": "https://www.nbcnews.com/business",
+      "url": "https://feeds.nbcnews.com/nbcnews/public/business"
+    },
+    {
+      "name": "USA Today \u00b7 Money",
+      "topic": "business",
+      "home": "https://www.usatoday.com/money/",
+      "url": "https://rssfeeds.usatoday.com/usatodaycommoney-topstories"
+    },
+    {
+      "name": "Los Angeles Times \u00b7 Business",
+      "topic": "business",
+      "home": "https://www.latimes.com/business",
+      "url": "https://www.latimes.com/business/rss2.0.xml"
     },
     {
       "name": "WSJ \u00b7 Markets",
