@@ -54,18 +54,23 @@ def _when(s: str) -> datetime | None:
     return d if d.tzinfo else d.replace(tzinfo=timezone.utc)
 
 
+def _repair(xml: str) -> str:
+    """Fix the common ways real feeds break strict XML, for one retry."""
+    # Undeclared namespace prefixes (e.g. <media:content> without xmlns:media).
+    xml = re.sub(r"<(/?)(?!rss\b)([A-Za-z_][\w.-]*):", r"<\1\2_", xml)
+    xml = re.sub(r"\s(?!xmlns)([A-Za-z_][\w.-]*):([A-Za-z_][\w.-]*)=", r" \1_\2=", xml)
+    # Bare ampersands and control characters.
+    xml = re.sub(r"&(?!(?:[A-Za-z][\w.-]*|#\d+|#x[0-9A-Fa-f]+);)", "&amp;", xml)
+    xml = re.sub(r"[\x00-\x08\x0b\x0c\x0e-\x1f]", "", xml)
+    return xml.lstrip("\ufeff \t\r\n")
+
+
 def parse_feed(xml: str) -> list[dict]:
     """Items from an RSS 2.0 or Atom feed, newest first."""
     try:
         root = ET.fromstring(xml)
-    except ET.ParseError as e:
-        if "unbound prefix" not in str(e):
-            raise
-        # Some feeds use namespace prefixes they never declare (e.g. <media:content>
-        # without xmlns:media); rename them so the strict parser accepts the document.
-        xml = re.sub(r"<(/?)([A-Za-z_][\w.-]*):", r"<\1\2_", xml)
-        xml = re.sub(r"\s(?!xmlns)([A-Za-z_][\w.-]*):([A-Za-z_][\w.-]*)=", r" \1_\2=", xml)
-        root = ET.fromstring(xml)
+    except ET.ParseError:
+        root = ET.fromstring(_repair(xml))
     raw = []
     for it in root.iter("item"):
         raw.append((_text(it, "title"), _text(it, "link", "guid"),

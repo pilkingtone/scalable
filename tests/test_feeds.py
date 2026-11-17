@@ -144,3 +144,9 @@ def test_ai_notes_skip_without_key_and_cache_with_fake_client(monkeypatch, tmp_p
     fresh = feeds.cluster_stories(_fetched(), CLUSTER_CFG, NOW)
     ai.enrich(fresh, cfg)
     assert calls == [] and fresh[0]["ai"]["label"] == "L"
+
+
+def test_repairs_bare_ampersands_and_control_chars():
+    xml = '<rss><channel><item><title>AT&T and Q&A \x0b</title><link>https://a/1</link></item></channel></rss>'
+    items = feeds.parse_feed(xml)
+    assert items[0]["title"].startswith("AT&T and Q&A")

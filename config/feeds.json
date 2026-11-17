@@ -68,7 +68,10 @@
       "name": "VentureBeat",
       "topic": "tech",
       "home": "https://venturebeat.com",
-      "url": "https://venturebeat.com/feed/"
+      "urls": [
+        "https://venturebeat.com/feed/",
+        "https://feeds.feedburner.com/venturebeat/SZYF"
+      ]
     },
     {
       "name": "IEEE Spectrum",
@@ -161,7 +164,11 @@
       "name": "Harvard Business Review",
       "topic": "ideas",
       "home": "https://hbr.org",
-      "url": "https://feeds.hbr.org/harvardbusiness"
+      "urls": [
+        "https://feeds.hbr.org/harvardbusiness",
+        "http://feeds.harvardbusiness.org/harvardbusiness",
+        "https://hbr.org/feed"
+      ]
     },
     {
       "name": "MIT Sloan Management Review",
@@ -185,7 +192,10 @@
       "name": "Stanford GSB Insights",
       "topic": "ideas",
       "home": "https://www.gsb.stanford.edu/insights",
-      "url": "https://www.gsb.stanford.edu/insights/rss.xml"
+      "urls": [
+        "https://www.gsb.stanford.edu/insights/feed",
+        "https://www.gsb.stanford.edu/rss/insights"
+      ]
     },
     {
       "name": "Fast Company \u00b7 Leadership",
@@ -194,10 +204,13 @@
       "url": "https://www.fastcompany.com/section/leadership/rss"
     },
     {
-      "name": "strategy+business",
+      "name": "Kellogg Insight",
       "topic": "ideas",
-      "home": "https://www.strategy-business.com",
-      "url": "https://www.strategy-business.com/rss"
+      "home": "https://insight.kellogg.northwestern.edu",
+      "urls": [
+        "https://insight.kellogg.northwestern.edu/rss",
+        "https://insight.kellogg.northwestern.edu/feed"
+      ]
     },
     {
       "name": "Bloomberg Markets",
@@ -227,7 +240,10 @@
       "name": "Yahoo Finance",
       "topic": "markets",
       "home": "https://finance.yahoo.com",
-      "url": "https://finance.yahoo.com/news/rssindex"
+      "urls": [
+        "https://finance.yahoo.com/news/rss",
+        "https://finance.yahoo.com/rss/topstories"
+      ]
     },
     {
       "name": "Planet Money (NPR)",
