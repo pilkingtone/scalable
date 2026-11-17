@@ -19,6 +19,10 @@
     {
       "id": "markets",
       "name": "Markets & Economy"
+    },
+    {
+      "id": "news",
+      "name": "U.S. News"
     }
   ],
   "sources": [
@@ -447,6 +451,18 @@
       "url": "https://feeds.nbcnews.com/nbcnews/public/tech"
     },
     {
+      "name": "CNN \u00b7 Tech",
+      "topic": "tech",
+      "home": "https://www.cnn.com/business/tech",
+      "url": "http://rss.cnn.com/rss/cnn_tech.rss"
+    },
+    {
+      "name": "Fox News \u00b7 Tech",
+      "topic": "tech",
+      "home": "https://www.foxnews.com/tech",
+      "url": "https://moxie.foxnews.com/google-publisher/tech.xml"
+    },
+    {
       "name": "The New York Times \u00b7 Business",
       "topic": "business",
       "home": "https://www.nytimes.com/section/business",
@@ -637,6 +653,27 @@
       "url": "https://www.latimes.com/business/rss2.0.xml"
     },
     {
+      "name": "CNN Business",
+      "topic": "business",
+      "home": "https://www.cnn.com/business",
+      "urls": [
+        "http://rss.cnn.com/rss/money_latest.rss",
+        "http://rss.cnn.com/rss/edition_business.rss"
+      ]
+    },
+    {
+      "name": "Fox Business",
+      "topic": "business",
+      "home": "https://www.foxbusiness.com",
+      "url": "https://moxie.foxbusiness.com/google-publisher/latest.xml"
+    },
+    {
+      "name": "HuffPost \u00b7 Business",
+      "topic": "business",
+      "home": "https://www.huffpost.com/news/business",
+      "url": "https://www.huffpost.com/section/business/feed"
+    },
+    {
       "name": "WSJ \u00b7 Markets",
       "topic": "markets",
       "home": "https://www.wsj.com/finance",
@@ -644,6 +681,81 @@
         "https://feeds.content.dowjones.io/public/rss/RSSMarketsMain",
         "https://feeds.a.dj.com/rss/RSSMarketsMain.xml"
       ]
+    },
+    {
+      "name": "CNN",
+      "topic": "news",
+      "home": "https://www.cnn.com",
+      "urls": [
+        "http://rss.cnn.com/rss/cnn_topstories.rss",
+        "http://rss.cnn.com/rss/edition.rss"
+      ]
+    },
+    {
+      "name": "Fox News",
+      "topic": "news",
+      "home": "https://www.foxnews.com",
+      "url": "https://moxie.foxnews.com/google-publisher/latest.xml"
+    },
+    {
+      "name": "MSNBC",
+      "topic": "news",
+      "home": "https://www.msnbc.com",
+      "urls": [
+        "https://www.msnbc.com/feeds/latest",
+        "https://www.ms.now/feeds/latest"
+      ]
+    },
+    {
+      "name": "HuffPost",
+      "topic": "news",
+      "home": "https://www.huffpost.com",
+      "url": "https://www.huffpost.com/section/front-page/feed"
+    },
+    {
+      "name": "The Daily Beast",
+      "topic": "news",
+      "home": "https://www.thedailybeast.com",
+      "urls": [
+        "https://www.thedailybeast.com/arc/outboundfeeds/rss/articles/",
+        "https://feeds.thedailybeast.com/rss/articles"
+      ]
+    },
+    {
+      "name": "NPR News",
+      "topic": "news",
+      "home": "https://www.npr.org/sections/news/",
+      "url": "https://feeds.npr.org/1001/rss.xml"
+    },
+    {
+      "name": "PBS NewsHour",
+      "topic": "news",
+      "home": "https://www.pbs.org/newshour/",
+      "url": "https://www.pbs.org/newshour/feeds/rss/headlines"
+    },
+    {
+      "name": "CBS News",
+      "topic": "news",
+      "home": "https://www.cbsnews.com",
+      "url": "https://www.cbsnews.com/latest/rss/main"
+    },
+    {
+      "name": "ABC News",
+      "topic": "news",
+      "home": "https://abcnews.go.com",
+      "url": "https://abcnews.go.com/abcnews/topstories"
+    },
+    {
+      "name": "NBC News",
+      "topic": "news",
+      "home": "https://www.nbcnews.com",
+      "url": "https://feeds.nbcnews.com/nbcnews/public/news"
+    },
+    {
+      "name": "The New York Times \u00b7 U.S.",
+      "topic": "news",
+      "home": "https://www.nytimes.com/section/us",
+      "url": "https://rss.nytimes.com/services/xml/rss/nyt/US.xml"
     }
   ],
   "story_hours": 72,
