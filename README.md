@@ -2,9 +2,12 @@
 
 The top tech and business stories, all in one place. A headline aggregator in the spirit of Alltop, built on the same design as [Electable](https://github.com/pilkingtone/electable).
 
-- **Topic pages** (Tech, Business, Management & Ideas, Markets & Economy): a box per source with its latest headlines. Hover a headline for the publisher's summary; headlines open on the publisher's site.
-- **Top stories**: the newest headlines across every source, with duplicate stories merged.
-- **Search** filters headlines everywhere.
+- **Stories** (home and each topic page): headlines from different outlets about the same event are grouped into one story, ranked by how many outlets cover it and how recently. Each card shows the lead outlet, how many sources, a HOT badge for widely covered breaking stories, a summary, "Why it matters", the other outlets, and related follow-up stories. Below the top stories, "More in <topic>" groups the rest by sub-topic (AI, Funding, Security, Deals, Earnings, ...).
+- **Columns**: a box per source with its latest headlines (hover for the publisher's summary).
+- **List**: every headline in the topic, newest first.
+- **Search** filters everything; a sun button switches light and dark.
+
+AI notes (optional): if the `ANTHROPIC_API_KEY` repository secret is set, each run asks Claude to write a one-sentence summary, a "Why it matters" line and a short label for the stories on screen, using only the outlets' headlines and feed summaries. Notes are cached in `data/ai_cache.json`, so each story is written once. Without the key, cards show the publisher's own feed summary and no "Why it matters".
 
 Sources and topics live in `config/feeds.json` (name, topic, homepage, RSS feed; `urls` gives fallbacks). Scalable uses only what publishers syndicate in their RSS feeds (headline, link, time, short summary) and always links to the original article. Feeds are parsed with `defusedxml`.
 

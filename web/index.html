@@ -5,45 +5,33 @@
   <meta name="viewport" content="width=device-width, initial-scale=1">
   <title>Scalable — Top Tech &amp; Business News</title>
   <meta name="description" content="Scalable: the top tech and business stories from the best sources, all in one place.">
+  <script>
+    // Apply a saved theme before first paint (no flash).
+    try { const t = localStorage.getItem("scalable-theme"); if (t) document.documentElement.dataset.theme = t; } catch (e) {}
+  </script>
   <link rel="stylesheet" href="style.css">
 </head>
 <body>
   <header class="site-header">
     <div class="wrap header-row">
-      <div>
-        <h1 class="wordmark"><a href="#top">Scalable<span class="mark" aria-hidden="true"><i></i><i></i><i></i></span></a></h1>
-        <p class="tagline">The top tech and business stories, all in one place</p>
+      <a class="wordmark" href="#">Scal<span>able</span><span class="mark" aria-hidden="true"><i></i><i></i><i></i></span></a>
+      <div class="header-tools">
+        <input type="search" id="search" placeholder="Search" aria-label="Search headlines">
+        <button type="button" class="icon-btn" id="theme" aria-label="Switch light or dark theme">
+          <svg viewBox="0 0 24 24" width="20" height="20" aria-hidden="true"><circle cx="12" cy="12" r="4.5" fill="none" stroke="currentColor" stroke-width="2"/><g stroke="currentColor" stroke-width="2" stroke-linecap="round"><path d="M12 2v2.5M12 19.5V22M2 12h2.5M19.5 12H22M4.9 4.9l1.8 1.8M17.3 17.3l1.8 1.8M4.9 19.1l1.8-1.8M17.3 6.7l1.8-1.8"/></g></svg>
+        </button>
       </div>
-      <div class="meta" id="meta" aria-live="polite"></div>
     </div>
   </header>
 
-  <main class="wrap">
-    <nav class="controls" aria-label="Topics">
-      <div class="seg" role="tablist" id="topic-tabs"></div>
-      <div class="filters">
-        <input type="search" id="search" placeholder="Search headlines" aria-label="Search headlines">
-      </div>
-    </nav>
-
+  <main class="wrap" id="main">
     <div id="empty" class="banner" hidden></div>
-
-    <section id="view-top" hidden>
-      <div class="card">
-        <h2>Latest from every source</h2>
-        <p class="sub" id="top-sub"></p>
-        <ol class="news-list" id="top-list"></ol>
-      </div>
-    </section>
-
-    <section id="view-topic" hidden>
-      <p class="sub" id="topic-sub"></p>
-      <div class="grid" id="grid"></div>
-    </section>
+    <div id="view"></div>
   </main>
 
   <footer class="wrap footer">
-    <p>Scalable shows each publisher's own headlines and feed summaries and links to the original articles; it doesn't copy articles. Some sources require a subscription to read in full.</p>
+    <p>Scalable shows each publisher's own headlines and feed summaries and links to the original articles; it doesn't copy articles. Stories are grouped and ranked automatically by how many outlets cover them and how recently.<span id="ai-note"></span> Some sources require a subscription to read in full.</p>
+    <p id="meta"></p>
     <p id="sources-note"></p>
   </footer>
 

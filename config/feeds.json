@@ -4,49 +4,243 @@
   "top_items": 60,
   "max_age_days": 10,
   "topics": [
-    {"id": "tech", "name": "Tech"},
-    {"id": "business", "name": "Business"},
-    {"id": "ideas", "name": "Management & Ideas"},
-    {"id": "markets", "name": "Markets & Economy"}
+    {
+      "id": "tech",
+      "name": "Tech"
+    },
+    {
+      "id": "business",
+      "name": "Business"
+    },
+    {
+      "id": "ideas",
+      "name": "Management & Ideas"
+    },
+    {
+      "id": "markets",
+      "name": "Markets & Economy"
+    }
   ],
   "sources": [
-    {"name": "TechCrunch", "topic": "tech", "home": "https://techcrunch.com", "url": "https://techcrunch.com/feed/"},
-    {"name": "Wired", "topic": "tech", "home": "https://www.wired.com", "url": "https://www.wired.com/feed/rss"},
-    {"name": "The Verge", "topic": "tech", "home": "https://www.theverge.com", "url": "https://www.theverge.com/rss/index.xml"},
-    {"name": "Ars Technica", "topic": "tech", "home": "https://arstechnica.com", "url": "https://feeds.arstechnica.com/arstechnica/index"},
-    {"name": "MIT Technology Review", "topic": "tech", "home": "https://www.technologyreview.com", "url": "https://www.technologyreview.com/feed/"},
-    {"name": "Fast Company", "topic": "tech", "home": "https://www.fastcompany.com", "url": "https://www.fastcompany.com/latest/rss"},
-    {"name": "Engadget", "topic": "tech", "home": "https://www.engadget.com", "url": "https://www.engadget.com/rss.xml"},
-    {"name": "VentureBeat", "topic": "tech", "home": "https://venturebeat.com", "url": "https://venturebeat.com/feed/"},
-    {"name": "IEEE Spectrum", "topic": "tech", "home": "https://spectrum.ieee.org", "url": "https://spectrum.ieee.org/feeds/feed.rss"},
-    {"name": "Rest of World", "topic": "tech", "home": "https://restofworld.org", "url": "https://restofworld.org/feed/latest/"},
-    {"name": "Hacker News", "topic": "tech", "home": "https://news.ycombinator.com", "url": "https://hnrss.org/frontpage"},
-    {"name": "The New York Times · Technology", "topic": "tech", "home": "https://www.nytimes.com/section/technology", "url": "https://rss.nytimes.com/services/xml/rss/nyt/Technology.xml"},
-
-    {"name": "The New York Times · Business", "topic": "business", "home": "https://www.nytimes.com/section/business", "url": "https://rss.nytimes.com/services/xml/rss/nyt/Business.xml"},
-    {"name": "The Economist · Business", "topic": "business", "home": "https://www.economist.com/business", "url": "https://www.economist.com/business/rss.xml"},
-    {"name": "Bloomberg", "topic": "business", "home": "https://www.bloomberg.com", "url": "https://feeds.bloomberg.com/business/news.rss"},
-    {"name": "Forbes", "topic": "business", "home": "https://www.forbes.com", "urls": ["https://www.forbes.com/business/feed/", "https://www.forbes.com/innovation/feed/"]},
-    {"name": "Fortune", "topic": "business", "home": "https://fortune.com", "url": "https://fortune.com/feed/fortune-feeds/?id=3230629"},
-    {"name": "Financial Times", "topic": "business", "home": "https://www.ft.com", "url": "https://www.ft.com/rss/home"},
-    {"name": "Business Insider", "topic": "business", "home": "https://www.businessinsider.com", "url": "https://feeds.businessinsider.com/custom/all"},
-    {"name": "Axios", "topic": "business", "home": "https://www.axios.com", "url": "https://api.axios.com/feed/"},
-    {"name": "Inc.", "topic": "business", "home": "https://www.inc.com", "url": "https://www.inc.com/rss"},
-    {"name": "Quartz", "topic": "business", "home": "https://qz.com", "url": "https://qz.com/rss"},
-
-    {"name": "Harvard Business Review", "topic": "ideas", "home": "https://hbr.org", "url": "https://feeds.hbr.org/harvardbusiness"},
-    {"name": "MIT Sloan Management Review", "topic": "ideas", "home": "https://sloanreview.mit.edu", "url": "https://sloanreview.mit.edu/feed/"},
-    {"name": "Knowledge at Wharton", "topic": "ideas", "home": "https://knowledge.wharton.upenn.edu", "url": "https://knowledge.wharton.upenn.edu/feed/"},
-    {"name": "McKinsey Insights", "topic": "ideas", "home": "https://www.mckinsey.com/featured-insights", "url": "https://www.mckinsey.com/insights/rss"},
-    {"name": "Stanford GSB Insights", "topic": "ideas", "home": "https://www.gsb.stanford.edu/insights", "url": "https://www.gsb.stanford.edu/insights/rss.xml"},
-    {"name": "Fast Company · Leadership", "topic": "ideas", "home": "https://www.fastcompany.com/section/leadership", "url": "https://www.fastcompany.com/section/leadership/rss"},
-    {"name": "strategy+business", "topic": "ideas", "home": "https://www.strategy-business.com", "url": "https://www.strategy-business.com/rss"},
-
-    {"name": "Bloomberg Markets", "topic": "markets", "home": "https://www.bloomberg.com/markets", "url": "https://feeds.bloomberg.com/markets/news.rss"},
-    {"name": "The Economist · Finance", "topic": "markets", "home": "https://www.economist.com/finance-and-economics", "url": "https://www.economist.com/finance-and-economics/rss.xml"},
-    {"name": "CNBC", "topic": "markets", "home": "https://www.cnbc.com", "url": "https://www.cnbc.com/id/100003114/device/rss/rss.html"},
-    {"name": "MarketWatch", "topic": "markets", "home": "https://www.marketwatch.com", "url": "https://feeds.content.dowjones.io/public/rss/mw_topstories"},
-    {"name": "Yahoo Finance", "topic": "markets", "home": "https://finance.yahoo.com", "url": "https://finance.yahoo.com/news/rssindex"},
-    {"name": "Planet Money (NPR)", "topic": "markets", "home": "https://www.npr.org/sections/money", "url": "https://feeds.npr.org/1017/rss.xml"}
-  ]
+    {
+      "name": "TechCrunch",
+      "topic": "tech",
+      "home": "https://techcrunch.com",
+      "url": "https://techcrunch.com/feed/"
+    },
+    {
+      "name": "Wired",
+      "topic": "tech",
+      "home": "https://www.wired.com",
+      "url": "https://www.wired.com/feed/rss"
+    },
+    {
+      "name": "The Verge",
+      "topic": "tech",
+      "home": "https://www.theverge.com",
+      "url": "https://www.theverge.com/rss/index.xml"
+    },
+    {
+      "name": "Ars Technica",
+      "topic": "tech",
+      "home": "https://arstechnica.com",
+      "url": "https://feeds.arstechnica.com/arstechnica/index"
+    },
+    {
+      "name": "MIT Technology Review",
+      "topic": "tech",
+      "home": "https://www.technologyreview.com",
+      "url": "https://www.technologyreview.com/feed/"
+    },
+    {
+      "name": "Fast Company",
+      "topic": "tech",
+      "home": "https://www.fastcompany.com",
+      "url": "https://www.fastcompany.com/latest/rss"
+    },
+    {
+      "name": "Engadget",
+      "topic": "tech",
+      "home": "https://www.engadget.com",
+      "url": "https://www.engadget.com/rss.xml"
+    },
+    {
+      "name": "VentureBeat",
+      "topic": "tech",
+      "home": "https://venturebeat.com",
+      "url": "https://venturebeat.com/feed/"
+    },
+    {
+      "name": "IEEE Spectrum",
+      "topic": "tech",
+      "home": "https://spectrum.ieee.org",
+      "url": "https://spectrum.ieee.org/feeds/feed.rss"
+    },
+    {
+      "name": "Rest of World",
+      "topic": "tech",
+      "home": "https://restofworld.org",
+      "url": "https://restofworld.org/feed/latest/"
+    },
+    {
+      "name": "Hacker News",
+      "topic": "tech",
+      "home": "https://news.ycombinator.com",
+      "url": "https://hnrss.org/frontpage"
+    },
+    {
+      "name": "The New York Times \u00b7 Technology",
+      "topic": "tech",
+      "home": "https://www.nytimes.com/section/technology",
+      "url": "https://rss.nytimes.com/services/xml/rss/nyt/Technology.xml"
+    },
+    {
+      "name": "The New York Times \u00b7 Business",
+      "topic": "business",
+      "home": "https://www.nytimes.com/section/business",
+      "url": "https://rss.nytimes.com/services/xml/rss/nyt/Business.xml"
+    },
+    {
+      "name": "The Economist \u00b7 Business",
+      "topic": "business",
+      "home": "https://www.economist.com/business",
+      "url": "https://www.economist.com/business/rss.xml"
+    },
+    {
+      "name": "Bloomberg",
+      "topic": "business",
+      "home": "https://www.bloomberg.com",
+      "url": "https://feeds.bloomberg.com/business/news.rss"
+    },
+    {
+      "name": "Forbes",
+      "topic": "business",
+      "home": "https://www.forbes.com",
+      "urls": [
+        "https://www.forbes.com/business/feed/",
+        "https://www.forbes.com/innovation/feed/"
+      ]
+    },
+    {
+      "name": "Fortune",
+      "topic": "business",
+      "home": "https://fortune.com",
+      "url": "https://fortune.com/feed/fortune-feeds/?id=3230629"
+    },
+    {
+      "name": "Financial Times",
+      "topic": "business",
+      "home": "https://www.ft.com",
+      "url": "https://www.ft.com/rss/home"
+    },
+    {
+      "name": "Business Insider",
+      "topic": "business",
+      "home": "https://www.businessinsider.com",
+      "url": "https://feeds.businessinsider.com/custom/all"
+    },
+    {
+      "name": "Axios",
+      "topic": "business",
+      "home": "https://www.axios.com",
+      "url": "https://api.axios.com/feed/"
+    },
+    {
+      "name": "Inc.",
+      "topic": "business",
+      "home": "https://www.inc.com",
+      "url": "https://www.inc.com/rss"
+    },
+    {
+      "name": "Quartz",
+      "topic": "business",
+      "home": "https://qz.com",
+      "url": "https://qz.com/rss"
+    },
+    {
+      "name": "Harvard Business Review",
+      "topic": "ideas",
+      "home": "https://hbr.org",
+      "url": "https://feeds.hbr.org/harvardbusiness"
+    },
+    {
+      "name": "MIT Sloan Management Review",
+      "topic": "ideas",
+      "home": "https://sloanreview.mit.edu",
+      "url": "https://sloanreview.mit.edu/feed/"
+    },
+    {
+      "name": "Knowledge at Wharton",
+      "topic": "ideas",
+      "home": "https://knowledge.wharton.upenn.edu",
+      "url": "https://knowledge.wharton.upenn.edu/feed/"
+    },
+    {
+      "name": "McKinsey Insights",
+      "topic": "ideas",
+      "home": "https://www.mckinsey.com/featured-insights",
+      "url": "https://www.mckinsey.com/insights/rss"
+    },
+    {
+      "name": "Stanford GSB Insights",
+      "topic": "ideas",
+      "home": "https://www.gsb.stanford.edu/insights",
+      "url": "https://www.gsb.stanford.edu/insights/rss.xml"
+    },
+    {
+      "name": "Fast Company \u00b7 Leadership",
+      "topic": "ideas",
+      "home": "https://www.fastcompany.com/section/leadership",
+      "url": "https://www.fastcompany.com/section/leadership/rss"
+    },
+    {
+      "name": "strategy+business",
+      "topic": "ideas",
+      "home": "https://www.strategy-business.com",
+      "url": "https://www.strategy-business.com/rss"
+    },
+    {
+      "name": "Bloomberg Markets",
+      "topic": "markets",
+      "home": "https://www.bloomberg.com/markets",
+      "url": "https://feeds.bloomberg.com/markets/news.rss"
+    },
+    {
+      "name": "The Economist \u00b7 Finance",
+      "topic": "markets",
+      "home": "https://www.economist.com/finance-and-economics",
+      "url": "https://www.economist.com/finance-and-economics/rss.xml"
+    },
+    {
+      "name": "CNBC",
+      "topic": "markets",
+      "home": "https://www.cnbc.com",
+      "url": "https://www.cnbc.com/id/100003114/device/rss/rss.html"
+    },
+    {
+      "name": "MarketWatch",
+      "topic": "markets",
+      "home": "https://www.marketwatch.com",
+      "url": "https://feeds.content.dowjones.io/public/rss/mw_topstories"
+    },
+    {
+      "name": "Yahoo Finance",
+      "topic": "markets",
+      "home": "https://finance.yahoo.com",
+      "url": "https://finance.yahoo.com/news/rssindex"
+    },
+    {
+      "name": "Planet Money (NPR)",
+      "topic": "markets",
+      "home": "https://www.npr.org/sections/money",
+      "url": "https://feeds.npr.org/1017/rss.xml"
+    }
+  ],
+  "story_hours": 72,
+  "cluster_items_per_source": 20,
+  "cluster_threshold": 0.55,
+  "hot_sources": 5,
+  "half_life_hours": 18,
+  "max_stories": 400,
+  "ai_stories_per_topic": 12
 }
