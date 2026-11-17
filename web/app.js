@@ -243,12 +243,20 @@
   }
 
   /* ---------------- theme ---------------- */
-  document.getElementById("theme").addEventListener("click", () => {
-    const root = document.documentElement;
-    const dark = root.dataset.theme ? root.dataset.theme === "dark" : matchMedia("(prefers-color-scheme: dark)").matches;
-    root.dataset.theme = dark ? "light" : "dark";
-    try { localStorage.setItem("scalable-theme", root.dataset.theme); } catch (e) { /* storage unavailable */ }
-  });
+  // Light / Dark switch. Until someone picks, the page follows the device setting.
+  const themeButtons = document.querySelectorAll("[data-theme-choice]");
+  const darkQuery = matchMedia("(prefers-color-scheme: dark)");
+  function showTheme() {
+    const t = document.documentElement.dataset.theme || (darkQuery.matches ? "dark" : "light");
+    themeButtons.forEach((b) => b.setAttribute("aria-pressed", b.dataset.themeChoice === t));
+  }
+  themeButtons.forEach((b) => b.addEventListener("click", () => {
+    document.documentElement.dataset.theme = b.dataset.themeChoice;
+    try { localStorage.setItem("scalable-theme", b.dataset.themeChoice); } catch (e) { /* storage unavailable */ }
+    showTheme();
+  }));
+  darkQuery.addEventListener("change", showTheme);
+  showTheme();
 
   async function load() {
     const data = await fetch("data/feeds.json", {cache: "no-cache"}).then((r) => r.ok ? r.json() : null).catch(() => null);

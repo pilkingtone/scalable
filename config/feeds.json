@@ -98,6 +98,294 @@
       "url": "https://rss.nytimes.com/services/xml/rss/nyt/Technology.xml"
     },
     {
+      "name": "Digital Trends",
+      "topic": "tech",
+      "home": "https://www.digitaltrends.com",
+      "url": "https://www.digitaltrends.com/feed/"
+    },
+    {
+      "name": "Gizmodo",
+      "topic": "tech",
+      "home": "https://gizmodo.com",
+      "urls": [
+        "https://gizmodo.com/feed",
+        "https://gizmodo.com/rss"
+      ]
+    },
+    {
+      "name": "CNET",
+      "topic": "tech",
+      "home": "https://www.cnet.com",
+      "url": "https://www.cnet.com/rss/news/"
+    },
+    {
+      "name": "ZDNET",
+      "topic": "tech",
+      "home": "https://www.zdnet.com",
+      "url": "https://www.zdnet.com/news/rss.xml"
+    },
+    {
+      "name": "Mashable",
+      "topic": "tech",
+      "home": "https://mashable.com",
+      "url": "https://mashable.com/feeds/rss/all"
+    },
+    {
+      "name": "The Next Web",
+      "topic": "tech",
+      "home": "https://thenextweb.com",
+      "url": "https://thenextweb.com/feed"
+    },
+    {
+      "name": "GeekWire",
+      "topic": "tech",
+      "home": "https://www.geekwire.com",
+      "url": "https://www.geekwire.com/feed/"
+    },
+    {
+      "name": "TechRadar",
+      "topic": "tech",
+      "home": "https://www.techradar.com",
+      "url": "https://www.techradar.com/rss"
+    },
+    {
+      "name": "Tom's Hardware",
+      "topic": "tech",
+      "home": "https://www.tomshardware.com",
+      "url": "https://www.tomshardware.com/feeds/all"
+    },
+    {
+      "name": "Tom's Guide",
+      "topic": "tech",
+      "home": "https://www.tomsguide.com",
+      "url": "https://www.tomsguide.com/feeds/all"
+    },
+    {
+      "name": "PCWorld",
+      "topic": "tech",
+      "home": "https://www.pcworld.com",
+      "url": "https://www.pcworld.com/feed"
+    },
+    {
+      "name": "PCMag",
+      "topic": "tech",
+      "home": "https://www.pcmag.com",
+      "url": "https://www.pcmag.com/feeds/rss/latest"
+    },
+    {
+      "name": "The Register",
+      "topic": "tech",
+      "home": "https://www.theregister.com",
+      "url": "https://www.theregister.com/headlines.atom"
+    },
+    {
+      "name": "Slashdot",
+      "topic": "tech",
+      "home": "https://slashdot.org",
+      "url": "https://rss.slashdot.org/Slashdot/slashdotMain"
+    },
+    {
+      "name": "9to5Mac",
+      "topic": "tech",
+      "home": "https://9to5mac.com",
+      "url": "https://9to5mac.com/feed/"
+    },
+    {
+      "name": "9to5Google",
+      "topic": "tech",
+      "home": "https://9to5google.com",
+      "url": "https://9to5google.com/feed/"
+    },
+    {
+      "name": "MacRumors",
+      "topic": "tech",
+      "home": "https://www.macrumors.com",
+      "url": "https://feeds.macrumors.com/MacRumors-All"
+    },
+    {
+      "name": "AppleInsider",
+      "topic": "tech",
+      "home": "https://appleinsider.com",
+      "url": "https://appleinsider.com/rss/news/"
+    },
+    {
+      "name": "Android Authority",
+      "topic": "tech",
+      "home": "https://www.androidauthority.com",
+      "url": "https://www.androidauthority.com/feed/"
+    },
+    {
+      "name": "Android Police",
+      "topic": "tech",
+      "home": "https://www.androidpolice.com",
+      "url": "https://www.androidpolice.com/feed/"
+    },
+    {
+      "name": "Electrek",
+      "topic": "tech",
+      "home": "https://electrek.co",
+      "url": "https://electrek.co/feed/"
+    },
+    {
+      "name": "TechSpot",
+      "topic": "tech",
+      "home": "https://www.techspot.com",
+      "url": "https://www.techspot.com/backend.xml"
+    },
+    {
+      "name": "Neowin",
+      "topic": "tech",
+      "home": "https://www.neowin.net",
+      "url": "https://www.neowin.net/news/rss/"
+    },
+    {
+      "name": "Lifehacker",
+      "topic": "tech",
+      "home": "https://lifehacker.com",
+      "url": "https://lifehacker.com/feed/rss"
+    },
+    {
+      "name": "Futurism",
+      "topic": "tech",
+      "home": "https://futurism.com",
+      "url": "https://futurism.com/feed"
+    },
+    {
+      "name": "404 Media",
+      "topic": "tech",
+      "home": "https://www.404media.co",
+      "url": "https://www.404media.co/rss/"
+    },
+    {
+      "name": "SiliconANGLE",
+      "topic": "tech",
+      "home": "https://siliconangle.com",
+      "url": "https://siliconangle.com/feed/"
+    },
+    {
+      "name": "The New Stack",
+      "topic": "tech",
+      "home": "https://thenewstack.io",
+      "url": "https://thenewstack.io/feed/"
+    },
+    {
+      "name": "InfoWorld",
+      "topic": "tech",
+      "home": "https://www.infoworld.com",
+      "url": "https://www.infoworld.com/feed/"
+    },
+    {
+      "name": "Computerworld",
+      "topic": "tech",
+      "home": "https://www.computerworld.com",
+      "url": "https://www.computerworld.com/feed/"
+    },
+    {
+      "name": "BleepingComputer",
+      "topic": "tech",
+      "home": "https://www.bleepingcomputer.com",
+      "url": "https://www.bleepingcomputer.com/feed/"
+    },
+    {
+      "name": "Krebs on Security",
+      "topic": "tech",
+      "home": "https://krebsonsecurity.com",
+      "url": "https://krebsonsecurity.com/feed/"
+    },
+    {
+      "name": "Dark Reading",
+      "topic": "tech",
+      "home": "https://www.darkreading.com",
+      "url": "https://www.darkreading.com/rss.xml"
+    },
+    {
+      "name": "Crunchbase News",
+      "topic": "tech",
+      "home": "https://news.crunchbase.com",
+      "url": "https://news.crunchbase.com/feed/"
+    },
+    {
+      "name": "Sifted",
+      "topic": "tech",
+      "home": "https://sifted.eu",
+      "url": "https://sifted.eu/feed"
+    },
+    {
+      "name": "Tech.eu",
+      "topic": "tech",
+      "home": "https://tech.eu",
+      "url": "https://tech.eu/feed/"
+    },
+    {
+      "name": "The Decoder",
+      "topic": "tech",
+      "home": "https://the-decoder.com",
+      "url": "https://the-decoder.com/feed/"
+    },
+    {
+      "name": "Stratechery",
+      "topic": "tech",
+      "home": "https://stratechery.com",
+      "url": "https://stratechery.com/feed/"
+    },
+    {
+      "name": "Platformer",
+      "topic": "tech",
+      "home": "https://www.platformer.news",
+      "url": "https://www.platformer.news/rss/"
+    },
+    {
+      "name": "The Information",
+      "topic": "tech",
+      "home": "https://www.theinformation.com",
+      "url": "https://www.theinformation.com/feed"
+    },
+    {
+      "name": "Techmeme",
+      "topic": "tech",
+      "home": "https://www.techmeme.com",
+      "url": "https://www.techmeme.com/feed.xml"
+    },
+    {
+      "name": "WSJ \u00b7 Technology",
+      "topic": "tech",
+      "home": "https://www.wsj.com/tech",
+      "urls": [
+        "https://feeds.content.dowjones.io/public/rss/RSSWSJD",
+        "https://feeds.a.dj.com/rss/RSSWSJD.xml"
+      ]
+    },
+    {
+      "name": "Bloomberg Technology",
+      "topic": "tech",
+      "home": "https://www.bloomberg.com/technology",
+      "url": "https://feeds.bloomberg.com/technology/news.rss"
+    },
+    {
+      "name": "Forbes \u00b7 Innovation",
+      "topic": "tech",
+      "home": "https://www.forbes.com/innovation/",
+      "url": "https://www.forbes.com/innovation/feed/"
+    },
+    {
+      "name": "CNBC Technology",
+      "topic": "tech",
+      "home": "https://www.cnbc.com/technology/",
+      "url": "https://www.cnbc.com/id/19854910/device/rss/rss.html"
+    },
+    {
+      "name": "The Guardian \u00b7 Technology",
+      "topic": "tech",
+      "home": "https://www.theguardian.com/technology",
+      "url": "https://www.theguardian.com/uk/technology/rss"
+    },
+    {
+      "name": "BBC Technology",
+      "topic": "tech",
+      "home": "https://www.bbc.com/news/technology",
+      "url": "https://feeds.bbci.co.uk/news/technology/rss.xml"
+    },
+    {
       "name": "The New York Times \u00b7 Business",
       "topic": "business",
       "home": "https://www.nytimes.com/section/business",
@@ -250,6 +538,48 @@
       "topic": "markets",
       "home": "https://www.npr.org/sections/money",
       "url": "https://feeds.npr.org/1017/rss.xml"
+    },
+    {
+      "name": "The Wall Street Journal",
+      "topic": "business",
+      "home": "https://www.wsj.com/business",
+      "urls": [
+        "https://feeds.content.dowjones.io/public/rss/WSJcomUSBusiness",
+        "https://feeds.a.dj.com/rss/WSJcomUSBusiness.xml"
+      ]
+    },
+    {
+      "name": "The Guardian \u00b7 Business",
+      "topic": "business",
+      "home": "https://www.theguardian.com/business",
+      "url": "https://www.theguardian.com/uk/business/rss"
+    },
+    {
+      "name": "BBC Business",
+      "topic": "business",
+      "home": "https://www.bbc.com/news/business",
+      "url": "https://feeds.bbci.co.uk/news/business/rss.xml"
+    },
+    {
+      "name": "The Washington Post \u00b7 Business",
+      "topic": "business",
+      "home": "https://www.washingtonpost.com/business/",
+      "url": "https://feeds.washingtonpost.com/rss/business"
+    },
+    {
+      "name": "Forbes \u00b7 Leadership",
+      "topic": "ideas",
+      "home": "https://www.forbes.com/leadership/",
+      "url": "https://www.forbes.com/leadership/feed/"
+    },
+    {
+      "name": "WSJ \u00b7 Markets",
+      "topic": "markets",
+      "home": "https://www.wsj.com/finance",
+      "urls": [
+        "https://feeds.content.dowjones.io/public/rss/RSSMarketsMain",
+        "https://feeds.a.dj.com/rss/RSSMarketsMain.xml"
+      ]
     }
   ],
   "story_hours": 72,

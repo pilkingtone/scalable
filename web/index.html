@@ -17,9 +17,10 @@
       <a class="wordmark" href="#">Scal<span>able</span><span class="mark" aria-hidden="true"><i></i><i></i><i></i></span></a>
       <div class="header-tools">
         <input type="search" id="search" placeholder="Search" aria-label="Search headlines">
-        <button type="button" class="icon-btn" id="theme" aria-label="Switch light or dark theme">
-          <svg viewBox="0 0 24 24" width="20" height="20" aria-hidden="true"><circle cx="12" cy="12" r="4.5" fill="none" stroke="currentColor" stroke-width="2"/><g stroke="currentColor" stroke-width="2" stroke-linecap="round"><path d="M12 2v2.5M12 19.5V22M2 12h2.5M19.5 12H22M4.9 4.9l1.8 1.8M17.3 17.3l1.8 1.8M4.9 19.1l1.8-1.8M17.3 6.7l1.8-1.8"/></g></svg>
-        </button>
+        <div class="theme-switch" id="theme" role="group" aria-label="Color theme">
+          <button type="button" data-theme-choice="light" aria-label="Light mode" title="Light mode"><svg viewBox="0 0 24 24" width="16" height="16" aria-hidden="true"><circle cx="12" cy="12" r="4.5" fill="none" stroke="currentColor" stroke-width="2"/><g stroke="currentColor" stroke-width="2" stroke-linecap="round"><path d="M12 2v2.5M12 19.5V22M2 12h2.5M19.5 12H22M4.9 4.9l1.8 1.8M17.3 17.3l1.8 1.8M4.9 19.1l1.8-1.8M17.3 6.7l1.8-1.8"/></g></svg><span>Light</span></button>
+          <button type="button" data-theme-choice="dark" aria-label="Dark mode" title="Dark mode"><svg viewBox="0 0 24 24" width="16" height="16" aria-hidden="true"><path d="M20 14.5A8 8 0 0 1 9.5 4a8 8 0 1 0 10.5 10.5z" fill="none" stroke="currentColor" stroke-width="2" stroke-linejoin="round"/></svg><span>Dark</span></button>
+        </div>
       </div>
     </div>
   </header>

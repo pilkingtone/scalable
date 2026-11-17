@@ -10,6 +10,7 @@ from __future__ import annotations
 
 import html
 import json
+from concurrent.futures import ThreadPoolExecutor
 import re
 from datetime import datetime, timedelta, timezone
 from email.utils import parsedate_to_datetime
@@ -130,17 +131,20 @@ def compile_sources(fetched: list[tuple[dict, list[dict]]], cfg: dict, now: date
 
 def run(out_dir: Path = OUT_DIR, max_age_hours: float = 0.5) -> dict:
     cfg = json.loads(CONFIG.read_text())
-    fetched, warnings = [], []
-    for src in cfg["sources"]:
+    def fetch(src):
         errors = []
         for url in src.get("urls") or [src["url"]]:
             try:
-                fetched.append((src, parse_feed(get(url, max_age_hours=max_age_hours, timeout=20))))
-                break
+                return src, parse_feed(get(url, max_age_hours=max_age_hours, timeout=20)), None
             except Exception as e:  # noqa: BLE001 - one bad feed must not sink the page
                 errors.append(str(e)[:120])
-        else:
-            warnings.append(f"{src['name']}: {' | '.join(errors)}")
+        return src, None, f"{src['name']}: {' | '.join(errors)}"
+
+    # Fetch in parallel (different hosts, mostly); results keep config order.
+    with ThreadPoolExecutor(max_workers=10) as pool:
+        results = list(pool.map(fetch, cfg["sources"]))
+    fetched = [(src, items) for src, items, err in results if err is None]
+    warnings = [err for _, _, err in results if err]
     now = datetime.now(timezone.utc)
     sources, top = compile_sources(fetched, cfg, now)
     stories = cluster_stories(fetched, cfg, now)
