@@ -387,7 +387,10 @@
       "name": "Windows Central",
       "topic": "tech",
       "home": "https://www.windowscentral.com",
-      "url": "https://www.windowscentral.com/feed"
+      "urls": [
+        "https://www.windowscentral.com/feeds/all",
+        "https://www.windowscentral.com/rss"
+      ]
     },
     {
       "name": "XDA",
@@ -442,12 +445,6 @@
       "topic": "tech",
       "home": "https://www.nbcnews.com/tech-media",
       "url": "https://feeds.nbcnews.com/nbcnews/public/tech"
-    },
-    {
-      "name": "USA Today \u00b7 Tech",
-      "topic": "tech",
-      "home": "https://www.usatoday.com/tech/",
-      "url": "https://rssfeeds.usatoday.com/usatoday-techtopstories"
     },
     {
       "name": "The New York Times \u00b7 Business",
@@ -632,12 +629,6 @@
       "topic": "business",
       "home": "https://www.nbcnews.com/business",
       "url": "https://feeds.nbcnews.com/nbcnews/public/business"
-    },
-    {
-      "name": "USA Today \u00b7 Money",
-      "topic": "business",
-      "home": "https://www.usatoday.com/money/",
-      "url": "https://rssfeeds.usatoday.com/usatodaycommoney-topstories"
     },
     {
       "name": "Los Angeles Times \u00b7 Business",
