@@ -1,5 +1,5 @@
 {
-  "_comment": "Sources for Scalable, grouped into topics like Alltop's topic pages. Each source box shows its latest headlines; only what publishers put in their RSS feeds (headline, link, time, short summary) is used, and every item links to the original. 'urls' lists fallbacks tried in order. Paywalled outlets still publish free headline feeds. Not listed: The Wall Street Journal (blocks automated feed readers, HTTP 403).",
+  "_comment": "Sources for Scalable, grouped into topics like Alltop's topic pages. Each source box shows its latest headlines; only what publishers put in their RSS feeds (headline, link, time, short summary) is used, and every item links to the original. 'urls' lists fallbacks tried in order. Paywalled outlets still publish free headline feeds.",
   "items_per_source": 6,
   "top_items": 60,
   "max_age_days": 10,
@@ -760,6 +760,9 @@
   "cluster_threshold": 0.55,
   "hot_sources": 5,
   "half_life_hours": 18,
-  "max_stories": 400,
-  "ai_stories_per_topic": 12
+  "ai_stories_per_topic": 12,
+  "max_stories_per_topic": 150,
+  "story_hours_by_topic": {
+    "ideas": 336
+  }
 }

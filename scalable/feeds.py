@@ -160,6 +160,18 @@ def compile_sources(fetched: list[tuple[dict, list[dict]]], cfg: dict, now: date
     return sources, top
 
 
+def _cap(stories: list[dict], cfg: dict) -> list[dict]:
+    """Keep the best stories per topic (so one busy topic can't crowd out the rest),
+    plus anything shown as a related story under a kept one."""
+    per = cfg.get("max_stories_per_topic", 150)
+    keep: set[str] = set()
+    for topic in {t for s in stories for t in s["topics"]}:
+        mine = [s for s in stories if topic in s["topics"] and not s.get("related_to")][:per]
+        for s in mine:
+            keep.add(s["id"]); keep.update(s["related"])
+    return [s for s in stories if s["id"] in keep]
+
+
 def run(out_dir: Path = OUT_DIR, max_age_hours: float = 0.5) -> dict:
     cfg = json.loads(CONFIG.read_text())
     stale = datetime.now(timezone.utc) - timedelta(days=cfg.get("max_age_days", 10))
@@ -191,7 +203,7 @@ def run(out_dir: Path = OUT_DIR, max_age_hours: float = 0.5) -> dict:
     ai_note = ai.enrich(stories, cfg)
     out = {"generated_at": now.replace(tzinfo=None).isoformat(timespec="seconds") + "Z",
            "topics": cfg["topics"], "sources": [s for s in sources if s["items"]],
-           "top": top, "stories": stories[:cfg.get("max_stories", 400)],
+           "top": top, "stories": _cap(stories, cfg),
            "ai": ai_note, "warnings": warnings}
     out_dir.mkdir(parents=True, exist_ok=True)
     (out_dir / "feeds.json").write_text(json.dumps(out))
@@ -267,11 +279,19 @@ def _stable_id(url: str) -> str:
     return hashlib.sha1(url.encode()).hexdigest()[:12]
 
 
+# Words too general to tie two stories together on their own ("CEO", "deal", ...).
+GENERIC = set("""ceo ceos cfo chief executive executives company companies firm firms business deal deals return
+returns report reports market markets stock stocks shares sale sales best top big year week day today people
+plan plans billion million price prices tech new first launch launches""".split())
+
+
 def cluster_stories(fetched: list[tuple[dict, list[dict]]], cfg: dict, now: datetime) -> list[dict]:
     """Group recent items from every source into stories, ranked by coverage and recency."""
-    cutoff = now - timedelta(hours=cfg.get("story_hours", 72))
+    # Slow-publishing topics (essays, research) get a longer window.
+    hours = cfg.get("story_hours_by_topic", {})
     items = []
     for src, its in fetched:
+        cutoff = now - timedelta(hours=hours.get(src["topic"], cfg.get("story_hours", 72)))
         for i in its[:cfg.get("cluster_items_per_source", 20)]:
             if i["published"] and cutoff <= i["published"] <= now + timedelta(hours=2):
                 items.append({**i, "source": src["name"], "topic": src["topic"], "toks": _tokens(i["title"])})
@@ -345,7 +365,8 @@ def cluster_stories(fetched: list[tuple[dict, list[dict]]], cfg: dict, now: date
             for tok in _tokens(t):
                 counts[tok] = counts.get(tok, 0) + 1
         limit = len(members) + max(3, n // 40)
-        key = {t for t, k in counts.items() if k * 2 >= len(members) and df.get(t, 0) <= limit}
+        key = {t for t, k in counts.items()
+               if k * 2 >= len(members) and df.get(t, 0) <= limit and t not in GENERIC}
         for d in out:
             if d is c or d["id"] in taken or d["score"] > c["score"] or d["related"]:
                 continue

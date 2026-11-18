@@ -167,3 +167,14 @@ def test_loose_fallback_for_broken_xml():
     items = feeds.parse_feed(xml)
     assert [i["url"] for i in items] == ["https://a/1", "https://a/2"]
     assert items[0]["title"] == "Fed holds rates"
+
+
+def test_generic_words_do_not_link_related_stories():
+    now = datetime(2026, 11, 17, 12, tzinfo=timezone.utc)
+    def item(t, h):
+        return {"title": t, "url": f"https://x/{abs(hash(t))}", "summary": "", "published": now - timedelta(hours=h)}
+    fetched = [({"name": n, "topic": "tech"}, [item("Nvidia CEO Jensen Huang says he would return", 1)]) for n in "ABC"]
+    fetched.append(({"name": "D", "topic": "news"}, [item("Comedian mocks CEO scandal at retailer", 2)]))
+    stories = feeds.cluster_stories(fetched, {"cluster_threshold": 0.55}, now)
+    main = max(stories, key=lambda s: s["n_sources"])
+    assert main["related"] == []
