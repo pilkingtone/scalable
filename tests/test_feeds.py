@@ -178,3 +178,13 @@ def test_generic_words_do_not_link_related_stories():
     stories = feeds.cluster_stories(fetched, {"cluster_threshold": 0.55}, now)
     main = max(stories, key=lambda s: s["n_sources"])
     assert main["related"] == []
+
+
+def test_numbers_do_not_link_related_stories():
+    now = datetime(2026, 11, 17, 12, tzinfo=timezone.utc)
+    def item(t, h):
+        return {"title": t, "url": f"https://x/{abs(hash(t))}", "summary": "", "published": now - timedelta(hours=h)}
+    fetched = [({"name": n, "topic": "tech"}, [item("Voyager 1 reaches one light-day from Earth", 1)]) for n in "ABC"]
+    fetched.append(({"name": "D", "topic": "tech"}, [item("Black Friday deals: 1 console bundle", 2)]))
+    stories = feeds.cluster_stories(fetched, {"cluster_threshold": 0.55}, now)
+    assert max(stories, key=lambda s: s["n_sources"])["related"] == []

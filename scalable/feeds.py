@@ -365,12 +365,18 @@ def cluster_stories(fetched: list[tuple[dict, list[dict]]], cfg: dict, now: date
             for tok in _tokens(t):
                 counts[tok] = counts.get(tok, 0) + 1
         limit = len(members) + max(3, n // 40)
+        # Defining words: real words (not numbers) in at least half the headlines. A word
+        # that is common today (e.g. "Nvidia" on a big Nvidia day) still counts if nearly
+        # every headline in the story uses it.
         key = {t for t, k in counts.items()
-               if k * 2 >= len(members) and df.get(t, 0) <= limit and t not in GENERIC}
+               if t.isalpha() and len(t) >= 3 and t not in GENERIC and k * 2 >= len(members)
+               and (df.get(t, 0) <= limit or k * 5 >= len(members) * 4)}
         for d in out:
             if d is c or d["id"] in taken or d["score"] > c["score"] or d["related"]:
                 continue
-            if key & _tokens(d["lead"]["title"]) and len(c["related"]) < 4:
+            shared = key & _tokens(d["lead"]["title"])
+            # Two defining words in common, or one the story's headlines nearly all use.
+            if (len(shared) >= 2 or any(counts[t] * 5 >= len(members) * 4 for t in shared)) and len(c["related"]) < 4:
                 c["related"].append(d["id"])
                 taken.add(d["id"])
                 d["related_to"] = c["id"]
