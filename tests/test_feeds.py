@@ -188,3 +188,13 @@ def test_numbers_do_not_link_related_stories():
     fetched.append(({"name": "D", "topic": "tech"}, [item("Black Friday deals: 1 console bundle", 2)]))
     stories = feeds.cluster_stories(fetched, {"cluster_threshold": 0.55}, now)
     assert max(stories, key=lambda s: s["n_sources"])["related"] == []
+
+
+def test_category_patterns_are_valid():
+    import json, re
+    from pathlib import Path
+    cfg = json.loads((Path(__file__).parent.parent / "config" / "feeds.json").read_text())
+    pats = {c["id"]: re.compile(c["pattern"], re.I) for c in cfg["categories"]}
+    assert pats["ai"].search("OpenAI launches a new model")
+    assert pats["wearables"].search("Apple Watch Series 12 review")
+    assert not pats["ai"].search("Said the chairman")  # "ai" only as a whole word

@@ -7,7 +7,8 @@
 (function () {
   "use strict";
 
-  const state = {data: null, topic: null, mode: "stories", q: ""};
+  const state = {data: null, topic: null, mode: "stories", q: "", cat: null};
+  let CATS = [];   // [{id, name, re}] from data.categories
   const MODES = [["stories", "Stories"], ["columns", "Columns"], ["list", "List"]];
   // Monogram colors from Electable's validated categorical palette (white text on each).
   const BADGES = ["#2a78d6", "#eb6834", "#1baf7a", "#6250d6", "#e34948", "#008300", "#d55181", "#256abf"];
@@ -27,9 +28,18 @@
   const badge = (name, cls) => { const b = el("span", "badge" + (cls ? " " + cls : ""), monogram(name)); b.style.background = BADGES[hash(name) % BADGES.length]; b.setAttribute("aria-hidden", "true"); return b; };
   const out = (a) => { a.target = "_blank"; a.rel = "noopener noreferrer"; return a; };
   const link = (title, url, cls) => { const a = el("a", cls, title); const h = safeHref(url); if (h) a.href = h; return out(a); };
-  const plural = (n, w) => `${n} ${w}${n === 1 ? "" : "s"}`;
+  const plural = (n, w) => `${n} ${n === 1 ? w : w.endsWith("y") ? w.slice(0, -1) + "ies" : w + "s"}`;
   const storyText = (s) => [s.lead.title, s.lead.summary, s.ai && s.ai.summary, ...s.more.map((m) => m.title)].join(" ").toLowerCase();
-  const itemMatches = (it) => !state.q || `${it.title} ${it.summary || ""}`.toLowerCase().includes(state.q);
+  const catOf = (id) => CATS.find((c) => c.id === id);
+  const inCat = (text, id) => { const c = catOf(id); return !c || c.re.test(text); };
+  // A story is in a category if its lead headline/summary says so, or at least half its headlines do.
+  const storyInCat = (s, c) => c.re.test(`${s.lead.title} ${s.lead.summary || ""} ${(s.ai && s.ai.summary) || ""}`)
+    || [s.lead.title, ...s.more.map((m) => m.title)].filter((t) => c.re.test(t)).length * 2 >= s.more.length + 1;
+  const itemMatches = (it) => (!state.q || `${it.title} ${it.summary || ""}`.toLowerCase().includes(state.q))
+    && inCat(`${it.title} ${it.summary || ""}`, state.cat);
+  const storyMatches = (s) => (!state.q || storyText(s).includes(state.q)) && (!catOf(state.cat) || storyInCat(s, catOf(state.cat)));
+  // Hash routes: #topic/mode?c=category (each part optional).
+  const hashFor = (topic, mode, cat) => "#" + (topic || "") + (topic && mode && mode !== "stories" ? "/" + mode : "") + (cat ? "?c=" + cat : "");
 
   /* ---------------- hover / focus preview (Columns and List) ---------------- */
   const tip = document.getElementById("preview");
@@ -106,13 +116,15 @@
   function renderStories(topic) {
     const all = topicStories(topic);
     const byId = Object.fromEntries(state.data.stories.map((s) => [s.id, s]));
-    const lead = all.filter((s) => !s.related_to && (!state.q || storyText(s).includes(state.q)));
-    const top = lead.slice(0, state.q ? 60 : 12);
+    const filtering = Boolean(state.q || state.cat);
+    const lead = all.filter((s) => !s.related_to && storyMatches(s));
+    const top = lead.slice(0, filtering ? 60 : 12);
     const frag = document.createDocumentFragment();
-    frag.appendChild(kicker("Top stories", state.q ? `${plural(lead.length, "match")} for “${state.q}”` : "Ranked by coverage · refreshed hourly"));
+    const label = state.cat ? catOf(state.cat).name : "Top stories";
+    frag.appendChild(kicker(label, filtering ? plural(lead.length, "story") + (state.q ? ` matching “${state.q}”` : "") : "Ranked by coverage · refreshed hourly"));
     top.forEach((s) => frag.appendChild(storyCard(s, byId)));
-    if (!top.length) frag.appendChild(el("p", "banner", "No stories match your search."));
-    if (state.q || topic === null) return frag;
+    if (!top.length) frag.appendChild(el("p", "banner", state.q ? "No stories match your search." : "No stories in this category right now."));
+    if (filtering || topic === null) return frag;
 
     // "More in <topic>": the rest, grouped by sub-category.
     const used = new Set(top.flatMap((s) => [s.id, ...s.related]));
@@ -139,7 +151,7 @@
     const grid = el("div", "grid");
     state.data.sources.filter((s) => s.topic === topic).forEach((s) => {
       const items = s.items.filter(itemMatches);
-      if (state.q && !items.length) return;
+      if ((state.q || state.cat) && !items.length) return;
       const card = el("article", "card source"), head = el("div", "source-head");
       const name = el("a", null, s.name); if (safeHref(s.home)) name.href = s.home; out(name);
       head.append(badge(s.name, "lg"), name); card.appendChild(head);
@@ -153,7 +165,7 @@
       const more = el("a", "more-link", `More from ${s.name} →`); if (safeHref(s.home)) more.href = s.home; card.appendChild(out(more));
       grid.appendChild(card);
     });
-    if (!grid.children.length) return el("p", "banner", "No headlines match your search.");
+    if (!grid.children.length) return el("p", "banner", "No headlines match this filter.");
     return grid;
   }
 
@@ -171,13 +183,13 @@
       li.append(left, el("span", "when", [it.source, it.published ? ago(it.published) : ""].filter(Boolean).join(" · ")));
       ul.appendChild(li);
     });
-    frag.appendChild(items.length ? ul : el("p", "banner", "No headlines match your search."));
+    frag.appendChild(items.length ? ul : el("p", "banner", "No headlines match this filter."));
     return frag;
   }
 
   function pageHead(title, statsText, withModes, crumb) {
     const head = el("section", "page-head");
-    if (crumb) { const c = el("a", "crumb", "← All topics"); c.href = "#"; head.appendChild(c); }
+    if (crumb) { const c = el("a", "crumb", "← All topics"); c.href = hashFor(null, null, state.cat); head.appendChild(c); }
     head.appendChild(el("h1", "page-title", title));
     const row = el("div", "title-row");
     const st = el("div", "stats"); st.append(el("i", "live"), statsText); row.appendChild(st);
@@ -186,12 +198,29 @@
       const v = el("div", "views"); v.setAttribute("role", "group"); v.setAttribute("aria-label", "View");
       MODES.forEach(([id, label]) => {
         const b = el("button", null, label); b.type = "button"; b.setAttribute("aria-pressed", id === state.mode);
-        b.addEventListener("click", () => { location.hash = state.topic + (id === "stories" ? "" : "/" + id); });
+        b.addEventListener("click", () => { location.hash = hashFor(state.topic, id, state.cat); });
         v.appendChild(b);
       });
       head.appendChild(v);
     }
     return head;
+  }
+
+  // Category chips (AI, Wearables, ...): only those with something in view, with counts.
+  function chipRow(things) {
+    const nav = el("nav", "chips"); nav.setAttribute("aria-label", "Filter by category");
+    const add = (id, label, n) => {
+      const a = el("a", "chip"); a.href = hashFor(state.topic, state.mode, id);
+      a.append(label); if (n != null) a.appendChild(el("span", null, String(n)));
+      if ((state.cat || null) === id) a.setAttribute("aria-current", "true");
+      nav.appendChild(a);
+    };
+    add(null, "All", null);
+    CATS.forEach((c) => {
+      const n = things.filter((t) => typeof t === "string" ? c.re.test(t) : storyInCat(t, c)).length;
+      if (n || c.id === state.cat) add(c.id, c.name, n);
+    });
+    return nav;
   }
 
   function renderHome() {
@@ -200,14 +229,15 @@
     frag.appendChild(pageHead("All topics", `${d.sources.length} sources · ${d.stories.length} stories in the last 3 days`, false, false));
     const cards = el("div", "topics");
     d.topics.forEach((t) => {
-      const a = el("a", "card topic-card"); a.href = "#" + t.id;
+      const a = el("a", "card topic-card"); a.href = hashFor(t.id, null, null);
       const n = d.sources.filter((s) => s.topic === t.id).length;
       a.append(el("h2", null, t.name), el("span", null, `${n} sources · ${topicStories(t.id).filter((s) => !s.related_to).length} stories`));
       const ol = el("ol");
       topicStories(t.id).filter((s) => !s.related_to).slice(0, 3).forEach((s) => ol.appendChild(el("li", null, s.lead.title)));
       a.appendChild(ol); cards.appendChild(a);
     });
-    if (!state.q) frag.appendChild(cards);
+    frag.appendChild(chipRow(d.stories.filter((s) => !s.related_to)));
+    if (!state.q && !state.cat) frag.appendChild(cards);
     frag.appendChild(renderStories(null));
     return frag;
   }
@@ -218,19 +248,28 @@
     const items = srcs.reduce((n, s) => n + s.items.length, 0);
     const frag = document.createDocumentFragment();
     frag.appendChild(pageHead(t.name, `${srcs.length} sources · ${items} recent items`, true, true));
+    frag.appendChild(chipRow(state.mode === "stories"
+      ? topicStories(t.id).filter((s) => !s.related_to)
+      : srcs.flatMap((s) => s.items.map((it) => `${it.title} ${it.summary || ""}`))));
     frag.appendChild(state.mode === "columns" ? renderColumns(t.id) : state.mode === "list" ? renderList(t.id) : renderStories(t.id));
     return frag;
   }
 
   function render() {
     hide();
-    const [h, m] = location.hash.replace(/^#/, "").split("/");
+    const [path, query] = location.hash.replace(/^#/, "").split("?");
+    const [h, m] = path.split("/");
+    const c = new URLSearchParams(query || "").get("c");
+    state.cat = catOf(c) ? c : null;
     state.topic = state.data.topics.some((t) => t.id === h) ? h : null;
     state.mode = MODES.some(([id]) => id === m) ? m : "stories";
     document.body.classList.toggle("wide", state.topic !== null && state.mode === "columns");
     view.replaceChildren(state.topic ? renderTopic() : renderHome());
     const name = state.topic && state.data.topics.find((t) => t.id === state.topic).name;
-    document.title = name ? `${name} — Scalable` : "Scalable — Top Tech & Business News";
+    const catName = state.cat && catOf(state.cat).name;
+    document.title = [catName, name].filter(Boolean).join(" · ") + (name || catName ? " — Scalable" : "Scalable — Top Tech & Business News");
+    const cur = view.querySelector('.chips [aria-current="true"]');
+    if (cur) cur.scrollIntoView({block: "nearest", inline: "center"});
   }
 
   function renderMeta() {
@@ -266,6 +305,9 @@
       return;
     }
     data.stories = data.stories || [];
+    CATS = (data.categories || []).flatMap((c) => {
+      try { return [{id: c.id, name: c.name, re: new RegExp(c.pattern, "i")}]; } catch (e) { return []; }
+    });
     state.data = data;
     renderMeta(); render();
     addEventListener("hashchange", () => { render(); scrollTo(0, 0); });

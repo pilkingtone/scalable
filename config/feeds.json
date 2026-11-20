@@ -764,5 +764,107 @@
   "max_stories_per_topic": 150,
   "story_hours_by_topic": {
     "ideas": 336
-  }
+  },
+  "categories": [
+    {
+      "id": "ai",
+      "name": "AI",
+      "pattern": "\\b(ai|a\\.i\\.|artificial intelligence|openai|chatgpt|anthropic|claude|gemini|llms?|machine learning|generative|copilot|deepmind|ai agents?|agentic|chatbots?)\\b"
+    },
+    {
+      "id": "wearables",
+      "name": "Wearables",
+      "pattern": "\\b(wearables?|smartwatch(es)?|apple watch|galaxy watch|pixel watch|fitbit|garmin|oura|smart ?rings?|smart ?glasses|ray-ban meta|vision pro|airpods|earbuds|fitness trackers?|whoop|headsets?)\\b"
+    },
+    {
+      "id": "phones",
+      "name": "Phones",
+      "pattern": "\\b(iphones?|smartphones?|android|galaxy s\\d+|galaxy z|pixel \\d+\\w*|ios \\d+|oneplus|foldables?)\\b"
+    },
+    {
+      "id": "chips",
+      "name": "Chips",
+      "pattern": "\\b(chips?|chipmakers?|semiconductors?|nvidia|amd|intel|tsmc|qualcomm|arm holdings|gpus?|processors?|foundr(y|ies)|asml|broadcom)\\b"
+    },
+    {
+      "id": "cloud",
+      "name": "Cloud & Enterprise",
+      "pattern": "\\b(cloud|aws|azure|google cloud|saas|data cent(er|re)s?|enterprise software|salesforce|oracle|snowflake|servicenow)\\b"
+    },
+    {
+      "id": "security",
+      "name": "Cybersecurity",
+      "pattern": "\\b(hack(s|ers?|ed|ing)?|breach(es)?|ransomware|malware|cyber\\w*|vulnerabilit(y|ies)|phishing|zero-day|spyware|exploits?)\\b"
+    },
+    {
+      "id": "crypto",
+      "name": "Crypto",
+      "pattern": "\\b(crypto\\w*|bitcoin|ethereum|blockchain|stablecoins?|coinbase|binance|nfts?)\\b"
+    },
+    {
+      "id": "evs",
+      "name": "EVs & Autos",
+      "pattern": "\\b(evs?|electric vehicles?|tesla|rivian|lucid|self-driving|autonomous (cars?|vehicles?)|robotaxis?|waymo|automakers?|general motors|toyota|stellantis|byd|volkswagen)\\b"
+    },
+    {
+      "id": "space",
+      "name": "Space",
+      "pattern": "\\b(nasa|spacex|rockets?|satellites?|starlink|orbit(al)?|lunar|moon|mars|blue origin|voyager|spacecraft|astronauts?)\\b"
+    },
+    {
+      "id": "gaming",
+      "name": "Gaming",
+      "pattern": "\\b(video ?games?|gaming|gamers?|xbox|playstation|ps5|nintendo|switch 2|steam deck|esports|grand theft auto|gta)\\b"
+    },
+    {
+      "id": "startups",
+      "name": "Startups & VC",
+      "pattern": "\\b(startups?|venture capital|vcs?|seed round|series [a-f]|raises \\$|valuation|unicorns?|ipos?|y combinator)\\b"
+    },
+    {
+      "id": "social",
+      "name": "Social Media",
+      "pattern": "\\b(social media|tiktok|instagram|facebook|threads|bluesky|reddit|youtube|snapchat|twitter|influencers?)\\b"
+    },
+    {
+      "id": "streaming",
+      "name": "Streaming & Media",
+      "pattern": "\\b(streaming|netflix|disney\\+|hbo|paramount|spotify|hulu|peacock|box office|warner bros|podcasts?)\\b"
+    },
+    {
+      "id": "robotics",
+      "name": "Robotics",
+      "pattern": "\\b(robots?|robotics|humanoids?|drones?)\\b"
+    },
+    {
+      "id": "policy",
+      "name": "Policy & Regulation",
+      "pattern": "\\b(regulat\\w+|antitrust|ftc|sec|doj|lawsuits?|sued|congress|legislation|tariffs?|eu|european commission|privacy|supreme court)\\b"
+    },
+    {
+      "id": "health",
+      "name": "Health & Biotech",
+      "pattern": "\\b(health|healthcare|biotech|pharma\\w*|fda|drugs?|vaccines?|medical|hospitals?|ozempic|wegovy|glp-1)\\b"
+    },
+    {
+      "id": "energy",
+      "name": "Energy & Climate",
+      "pattern": "\\b(energy|climate|solar|wind (power|farms?)|batter(y|ies)|nuclear|oil|emissions|renewables?|power grid|utilities)\\b"
+    },
+    {
+      "id": "retail",
+      "name": "Retail & Shopping",
+      "pattern": "\\b(retail(ers?)?|e-?commerce|shoppers?|shopping|black friday|cyber monday|walmart|costco|shopify|deals?)\\b"
+    },
+    {
+      "id": "work",
+      "name": "Jobs & Work",
+      "pattern": "\\b(layoffs?|laid off|job cuts|hiring|workers|employees|remote work|return to office|unions?|strikes?|workforce|salar(y|ies)|careers?)\\b"
+    },
+    {
+      "id": "markets",
+      "name": "Markets & Rates",
+      "pattern": "\\b(stocks?|s&p|dow|nasdaq|fed|federal reserve|interest rates?|inflation|bonds?|treasur(y|ies)|earnings)\\b"
+    }
+  ]
 }

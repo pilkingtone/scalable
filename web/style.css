@@ -156,3 +156,13 @@ a:focus-visible, button:focus-visible, input:focus-visible { outline: 2px solid 
 }
 .list-item { display: flex; gap: 8px; align-items: baseline; min-width: 0; }
 .list-item .badge { position: relative; top: 3px; }
+
+/* Category chips */
+.chips { display: flex; gap: 8px; overflow-x: auto; padding: 14px 0 4px; scrollbar-width: none; -webkit-overflow-scrolling: touch; }
+.chips::-webkit-scrollbar { display: none; }
+.chip { flex: none; display: inline-flex; align-items: center; gap: 6px; border: 1px solid var(--border); background: var(--surface);
+  color: var(--ink-2); border-radius: 999px; padding: 6px 12px; font-size: 0.88rem; text-decoration: none; white-space: nowrap; }
+.chip span { color: var(--muted); font-family: var(--mono); font-size: 0.75rem; }
+.chip:hover { border-color: var(--ink-2); }
+.chip[aria-current="true"] { background: var(--ink); color: var(--surface); border-color: var(--ink); }
+.chip[aria-current="true"] span { color: inherit; opacity: 0.7; }

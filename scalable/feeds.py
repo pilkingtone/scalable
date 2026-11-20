@@ -204,7 +204,8 @@ def run(out_dir: Path = OUT_DIR, max_age_hours: float = 0.5) -> dict:
     out = {"generated_at": now.replace(tzinfo=None).isoformat(timespec="seconds") + "Z",
            "topics": cfg["topics"], "sources": [s for s in sources if s["items"]],
            "top": top, "stories": _cap(stories, cfg),
-           "ai": ai_note, "warnings": warnings}
+           "ai": ai_note, "warnings": warnings,
+           "categories": cfg.get("categories", [])}
     out_dir.mkdir(parents=True, exist_ok=True)
     (out_dir / "feeds.json").write_text(json.dumps(out))
     # Explain feeds that loaded but produced no headlines (no items, or all too old).
