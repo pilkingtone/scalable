@@ -5,7 +5,7 @@ The top tech and business stories, all in one place. A headline aggregator in th
 - **Stories** (home and each topic page): headlines from different outlets about the same event are grouped into one story, ranked by how many outlets cover it and how recently. Each card shows the lead outlet, how many sources, a HOT badge for widely covered breaking stories, a summary, "Why it matters", the other outlets, and related follow-up stories. Below the top stories, "More in <topic>" groups the rest by sub-topic (AI, Funding, Security, Deals, Earnings, ...).
 - **Columns**: a box per source with its latest headlines (hover for the publisher's summary).
 - **List**: every headline in the topic, newest first.
-- **Category chips** (AI, Wearables, Phones, Chips, Cybersecurity, Crypto, EVs, Space, Gaming, Startups, ...) filter any page and view; the list and their keyword patterns live in `config/feeds.json` under `categories`.
+- **Category chips** (the TechCrunch topic list: AI, Amazon, Apps, Biotech & Health, Climate, ... Venture) filter any page and view; the list and their keyword patterns live in `config/feeds.json` under `categories`.
 - **Search** filters everything; a sun button switches light and dark.
 
 AI notes (optional): if the `ANTHROPIC_API_KEY` repository secret is set, each run asks Claude to write a one-sentence summary, a "Why it matters" line and a short label for the stories on screen, using only the outlets' headlines and feed summaries. Notes are cached in `data/ai_cache.json`, so each story is written once. Without the key, cards show the publisher's own feed summary and no "Why it matters".

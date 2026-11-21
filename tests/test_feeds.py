@@ -196,5 +196,5 @@ def test_category_patterns_are_valid():
     cfg = json.loads((Path(__file__).parent.parent / "config" / "feeds.json").read_text())
     pats = {c["id"]: re.compile(c["pattern"], re.I) for c in cfg["categories"]}
     assert pats["ai"].search("OpenAI launches a new model")
-    assert pats["wearables"].search("Apple Watch Series 12 review")
+    assert pats["gadgets"].search("Apple Watch Series 12 review")
     assert not pats["ai"].search("Said the chairman")  # "ai" only as a whole word

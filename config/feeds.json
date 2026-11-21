@@ -772,99 +772,149 @@
       "pattern": "\\b(ai|a\\.i\\.|artificial intelligence|openai|chatgpt|anthropic|claude|gemini|llms?|machine learning|generative|copilot|deepmind|ai agents?|agentic|chatbots?)\\b"
     },
     {
-      "id": "wearables",
-      "name": "Wearables",
-      "pattern": "\\b(wearables?|smartwatch(es)?|apple watch|galaxy watch|pixel watch|fitbit|garmin|oura|smart ?rings?|smart ?glasses|ray-ban meta|vision pro|airpods|earbuds|fitness trackers?|whoop|headsets?)\\b"
+      "id": "amazon",
+      "name": "Amazon",
+      "pattern": "\\b(amazon|aws|alexa|kindle|prime video|whole foods|jassy|bezos)\\b"
     },
     {
-      "id": "phones",
-      "name": "Phones",
-      "pattern": "\\b(iphones?|smartphones?|android|galaxy s\\d+|galaxy z|pixel \\d+\\w*|ios \\d+|oneplus|foldables?)\\b"
+      "id": "apps",
+      "name": "Apps",
+      "pattern": "\\b(apps?|app store|google play|ios \\d+|android \\d+|chrome|safari|browser extensions?)\\b"
     },
     {
-      "id": "chips",
-      "name": "Chips",
-      "pattern": "\\b(chips?|chipmakers?|semiconductors?|nvidia|amd|intel|tsmc|qualcomm|arm holdings|gpus?|processors?|foundr(y|ies)|asml|broadcom)\\b"
+      "id": "health",
+      "name": "Biotech & Health",
+      "pattern": "\\b(health|healthcare|biotech|pharma\\w*|fda|drugs?|vaccines?|medical|hospitals?|ozempic|wegovy|glp-1|clinical)\\b"
+    },
+    {
+      "id": "climate",
+      "name": "Climate",
+      "pattern": "\\b(climate|solar|wind (power|farms?)|renewables?|emissions|carbon|clean energy|batter(y|ies)|nuclear|geothermal|heat pumps?)\\b"
     },
     {
       "id": "cloud",
-      "name": "Cloud & Enterprise",
-      "pattern": "\\b(cloud|aws|azure|google cloud|saas|data cent(er|re)s?|enterprise software|salesforce|oracle|snowflake|servicenow)\\b"
+      "name": "Cloud Computing",
+      "pattern": "\\b(cloud|aws|azure|google cloud|data cent(er|re)s?|serverless|kubernetes|hyperscalers?)\\b"
     },
     {
-      "id": "security",
-      "name": "Cybersecurity",
-      "pattern": "\\b(hack(s|ers?|ed|ing)?|breach(es)?|ransomware|malware|cyber\\w*|vulnerabilit(y|ies)|phishing|zero-day|spyware|exploits?)\\b"
+      "id": "commerce",
+      "name": "Commerce",
+      "pattern": "\\b(e-?commerce|retail(ers?)?|shoppers?|shopping|black friday|cyber monday|walmart|costco|shopify|temu|shein|etsy|ebay|deals?)\\b"
     },
     {
       "id": "crypto",
       "name": "Crypto",
-      "pattern": "\\b(crypto\\w*|bitcoin|ethereum|blockchain|stablecoins?|coinbase|binance|nfts?)\\b"
+      "pattern": "\\b(crypto\\w*|bitcoin|ethereum|blockchain|stablecoins?|coinbase|binance|nfts?|solana)\\b"
+    },
+    {
+      "id": "enterprise",
+      "name": "Enterprise",
+      "pattern": "\\b(enterprise|saas|b2b|salesforce|oracle|sap|servicenow|workday|snowflake|ibm|slack)\\b"
     },
     {
       "id": "evs",
-      "name": "EVs & Autos",
-      "pattern": "\\b(evs?|electric vehicles?|tesla|rivian|lucid|self-driving|autonomous (cars?|vehicles?)|robotaxis?|waymo|automakers?|general motors|toyota|stellantis|byd|volkswagen)\\b"
+      "name": "EVs",
+      "pattern": "\\b(evs?|electric vehicles?|electric cars?|tesla|rivian|lucid|byd|polestar|charging stations?|chargers?)\\b"
     },
     {
-      "id": "space",
-      "name": "Space",
-      "pattern": "\\b(nasa|spacex|rockets?|satellites?|starlink|orbit(al)?|lunar|moon|mars|blue origin|voyager|spacecraft|astronauts?)\\b"
+      "id": "fintech",
+      "name": "Fintech",
+      "pattern": "\\b(fintech|payments?|stripe|paypal|venmo|klarna|affirm|robinhood|chime|neobanks?|apple pay|banking app|buy now,? pay later)\\b"
+    },
+    {
+      "id": "fundraising",
+      "name": "Fundraising",
+      "pattern": "\\b(raises \\$?|raised \\$?|funding round|seed round|series [a-f]|pre-seed|valuation|led by)\\b"
+    },
+    {
+      "id": "gadgets",
+      "name": "Gadgets",
+      "pattern": "\\b(gadgets?|wearables?|smartwatch(es)?|apple watch|galaxy watch|pixel watch|fitbit|garmin|oura|smart ?rings?|smart ?glasses|vision pro|airpods|earbuds|headphones|headsets?|iphones?|smartphones?|pixel \\d+\\w*|galaxy s\\d+|ipads?|tablets?|laptops?|macbooks?|cameras?|tvs?|speakers?|kindle)\\b"
     },
     {
       "id": "gaming",
       "name": "Gaming",
-      "pattern": "\\b(video ?games?|gaming|gamers?|xbox|playstation|ps5|nintendo|switch 2|steam deck|esports|grand theft auto|gta)\\b"
+      "pattern": "\\b(video ?games?|gaming|gamers?|xbox|playstation|ps5|nintendo|switch 2|steam|esports|grand theft auto|gta)\\b"
     },
     {
-      "id": "startups",
-      "name": "Startups & VC",
-      "pattern": "\\b(startups?|venture capital|vcs?|seed round|series [a-f]|raises \\$|valuation|unicorns?|ipos?|y combinator)\\b"
+      "id": "google",
+      "name": "Google",
+      "pattern": "\\b(google|alphabet|youtube|android|pixel|gemini|deepmind|waymo|pichai|chrome)\\b"
     },
     {
-      "id": "social",
-      "name": "Social Media",
-      "pattern": "\\b(social media|tiktok|instagram|facebook|threads|bluesky|reddit|youtube|snapchat|twitter|influencers?)\\b"
+      "id": "hardware",
+      "name": "Hardware",
+      "pattern": "\\b(hardware|chips?|chipmakers?|semiconductors?|nvidia|amd|intel|tsmc|qualcomm|arm holdings|gpus?|cpus?|processors?|asml|broadcom|pcs?|servers?)\\b"
     },
     {
-      "id": "streaming",
-      "name": "Streaming & Media",
-      "pattern": "\\b(streaming|netflix|disney\\+|hbo|paramount|spotify|hulu|peacock|box office|warner bros|podcasts?)\\b"
+      "id": "instagram",
+      "name": "Instagram",
+      "pattern": "\\binstagram\\b"
+    },
+    {
+      "id": "layoffs",
+      "name": "Layoffs",
+      "pattern": "\\b(layoffs?|laid off|lays off|job cuts|cuts? \\d[\\d,]* jobs|workforce reduction|redundanc(y|ies))\\b"
+    },
+    {
+      "id": "media",
+      "name": "Media & Entertainment",
+      "pattern": "\\b(streaming|netflix|disney|hbo|paramount|spotify|hulu|peacock|box office|warner bros|podcasts?|hollywood|movies?|films?|music|tv shows?|publishers?)\\b"
+    },
+    {
+      "id": "meta",
+      "name": "Meta",
+      "pattern": "\\b(meta|facebook|instagram|whatsapp|threads|zuckerberg|oculus|quest \\d|ray-ban meta|llama)\\b"
+    },
+    {
+      "id": "microsoft",
+      "name": "Microsoft",
+      "pattern": "\\b(microsoft|windows|xbox|azure|copilot|nadella|bing|linkedin|github|office 365|teams)\\b"
+    },
+    {
+      "id": "privacy",
+      "name": "Privacy",
+      "pattern": "\\b(privacy|surveillance|tracking|personal data|data protection|gdpr|spyware|facial recognition|encryption|data brokers?)\\b"
     },
     {
       "id": "robotics",
       "name": "Robotics",
-      "pattern": "\\b(robots?|robotics|humanoids?|drones?)\\b"
+      "pattern": "\\b(robots?|robotics|humanoids?|drones?|robotaxis?)\\b"
     },
     {
-      "id": "policy",
-      "name": "Policy & Regulation",
-      "pattern": "\\b(regulat\\w+|antitrust|ftc|sec|doj|lawsuits?|sued|congress|legislation|tariffs?|eu|european commission|privacy|supreme court)\\b"
+      "id": "security",
+      "name": "Security",
+      "pattern": "\\b(security|hack(s|ers?|ed|ing)?|breach(es)?|ransomware|malware|cyber\\w*|vulnerabilit(y|ies)|phishing|zero-day|exploits?)\\b"
     },
     {
-      "id": "health",
-      "name": "Health & Biotech",
-      "pattern": "\\b(health|healthcare|biotech|pharma\\w*|fda|drugs?|vaccines?|medical|hospitals?|ozempic|wegovy|glp-1)\\b"
+      "id": "social",
+      "name": "Social",
+      "pattern": "\\b(social media|social network\\w*|tiktok|instagram|facebook|threads|bluesky|reddit|snapchat|twitter|x\\.com|discord|influencers?|creators?)\\b"
     },
     {
-      "id": "energy",
-      "name": "Energy & Climate",
-      "pattern": "\\b(energy|climate|solar|wind (power|farms?)|batter(y|ies)|nuclear|oil|emissions|renewables?|power grid|utilities)\\b"
+      "id": "space",
+      "name": "Space",
+      "pattern": "\\b(space|nasa|spacex|rockets?|satellites?|starlink|orbit(al)?|lunar|moon|mars|blue origin|voyager|spacecraft|astronauts?)\\b"
     },
     {
-      "id": "retail",
-      "name": "Retail & Shopping",
-      "pattern": "\\b(retail(ers?)?|e-?commerce|shoppers?|shopping|black friday|cyber monday|walmart|costco|shopify|deals?)\\b"
+      "id": "startups",
+      "name": "Startups",
+      "pattern": "\\b(startups?|founders?|y combinator|accelerator|unicorns?|stealth)\\b"
     },
     {
-      "id": "work",
-      "name": "Jobs & Work",
-      "pattern": "\\b(layoffs?|laid off|job cuts|hiring|workers|employees|remote work|return to office|unions?|strikes?|workforce|salar(y|ies)|careers?)\\b"
+      "id": "tiktok",
+      "name": "TikTok",
+      "pattern": "\\b(tiktok|bytedance)\\b"
     },
     {
-      "id": "markets",
-      "name": "Markets & Rates",
-      "pattern": "\\b(stocks?|s&p|dow|nasdaq|fed|federal reserve|interest rates?|inflation|bonds?|treasur(y|ies)|earnings)\\b"
+      "id": "transportation",
+      "name": "Transportation",
+      "pattern": "\\b(transportation|transit|airlines?|flights?|aviation|boeing|airbus|faa|uber|lyft|trains?|rail|self-driving|autonomous (cars?|vehicles?)|waymo|automakers?|cars?|trucks?|ships?|shipping)\\b"
+    },
+    {
+      "id": "venture",
+      "name": "Venture",
+      "pattern": "\\b(venture capital|vcs?|venture firms?|investors?|limited partners|sequoia|andreessen|a16z|benchmark capital|general catalyst|lightspeed|accel|ipos?)\\b"
     }
   ]
 }
