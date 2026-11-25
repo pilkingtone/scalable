@@ -121,7 +121,7 @@
     const top = lead.slice(0, filtering ? 60 : 12);
     const frag = document.createDocumentFragment();
     const label = state.cat ? catOf(state.cat).name : "Top stories";
-    frag.appendChild(kicker(label, filtering ? plural(lead.length, "story") + (state.q ? ` matching “${state.q}”` : "") : "Ranked by coverage · refreshed hourly"));
+    frag.appendChild(kicker(label, filtering ? plural(lead.length, "story") + (state.q ? ` matching “${state.q}”` : "") : "Ranked by coverage · refreshed every 30 min"));
     top.forEach((s) => frag.appendChild(storyCard(s, byId)));
     if (!top.length) frag.appendChild(el("p", "banner", state.q ? "No stories match your search." : "No stories in this category right now."));
     if (filtering || topic === null) return frag;
@@ -187,9 +187,33 @@
     return frag;
   }
 
+  // "Last updated Wed, Nov 25, 2026, 5:23 PM EST · 12 min ago", above each page title.
+  function updatedLine() {
+    const iso = state.data.generated_at, d = new Date(iso);
+    const p = el("p", "updated");
+    if (isNaN(d)) return p;
+    const t = el("time", null, d.toLocaleString(undefined, {weekday: "short", month: "short", day: "numeric", year: "numeric",
+      hour: "numeric", minute: "2-digit", timeZoneName: "short"}));
+    t.dateTime = iso;
+    p.append(el("b", null, "Last updated"), t, el("span", "updated-ago", "· " + ago(iso)));
+    return p;
+  }
+  // Keep "x min ago" current, and pick up new headlines without a reload.
+  function tick() {
+    document.querySelectorAll(".updated-ago").forEach((e) => { e.textContent = "· " + ago(state.data.generated_at); });
+  }
+  async function refresh() {
+    const data = await fetch("data/feeds.json", {cache: "no-cache"}).then((r) => r.ok ? r.json() : null).catch(() => null);
+    if (!data || data.generated_at === state.data.generated_at) return;
+    const y = scrollY;
+    data.stories = data.stories || [];
+    state.data = data; renderMeta(); render(); scrollTo(0, y);
+  }
+
   function pageHead(title, statsText, withModes, crumb) {
     const head = el("section", "page-head");
     if (crumb) { const c = el("a", "crumb", "← All topics"); c.href = hashFor(null, null, state.cat); head.appendChild(c); }
+    head.appendChild(updatedLine());
     head.appendChild(el("h1", "page-title", title));
     const row = el("div", "title-row");
     const st = el("div", "stats"); st.append(el("i", "live"), statsText); row.appendChild(st);
@@ -275,7 +299,7 @@
   function renderMeta() {
     const d = state.data;
     const m = document.getElementById("meta"); m.replaceChildren();
-    m.append("Updated ", el("strong", null, fmtTime(d.generated_at)), ` · ${d.sources.length} sources · refreshed hourly`);
+    m.append("Updated ", el("strong", null, fmtTime(d.generated_at)), ` · ${d.sources.length} sources · refreshed about every 30 minutes`);
     document.getElementById("sources-note").textContent = "Sources: " + d.sources.map((x) => x.name).join(", ") + ".";
     if (d.ai && d.ai.enabled) document.getElementById("ai-note").textContent =
       " Story summaries, “Why it matters” notes and story labels are written by AI from the outlets' own headlines and feed summaries, and may contain mistakes; follow the links for the full reporting.";
@@ -315,6 +339,9 @@
       clearTimeout(t); t = setTimeout(() => { state.q = e.target.value.trim().toLowerCase(); render(); }, 150);
     });
     addEventListener("scroll", hide, {passive: true});
+    setInterval(tick, 60e3);
+    setInterval(() => { if (!document.hidden) refresh(); }, 5 * 60e3);
+    document.addEventListener("visibilitychange", () => { if (!document.hidden) { tick(); refresh(); } });
   }
   load();
 })();

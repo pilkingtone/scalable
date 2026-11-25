@@ -59,7 +59,7 @@ a:focus-visible, button:focus-visible, input:focus-visible { outline: 2px solid 
 
 /* Page heads */
 .page-head { padding: 28px 0 18px; border-bottom: 1px solid var(--border); display: grid; grid-template-columns: 1fr auto; gap: 10px 16px; align-items: end; }
-.page-head > .crumb, .page-head > .page-title { grid-column: 1 / -1; }
+.page-head > .crumb, .page-head > .page-title, .page-head > .updated { grid-column: 1 / -1; }
 .crumb { color: var(--muted); text-decoration: none; font-size: 0.9rem; }
 .crumb:hover { color: var(--ink-2); }
 .page-title { font-size: clamp(2.2rem, 7vw, 3.4rem); font-weight: 800; line-height: 1.02; letter-spacing: -0.035em; }
@@ -166,3 +166,8 @@ a:focus-visible, button:focus-visible, input:focus-visible { outline: 2px solid 
 .chip:hover { border-color: var(--ink-2); }
 .chip[aria-current="true"] { background: var(--ink); color: var(--surface); border-color: var(--ink); }
 .chip[aria-current="true"] span { color: inherit; opacity: 0.7; }
+
+/* "Last updated" line above page titles */
+.updated { margin: 0; display: flex; flex-wrap: wrap; gap: 4px 8px; align-items: baseline; color: var(--ink-2); font-size: 0.85rem; }
+.updated b { color: var(--label); font-size: 0.74rem; letter-spacing: 0.12em; text-transform: uppercase; font-weight: 700; }
+.updated-ago { color: var(--muted); }
