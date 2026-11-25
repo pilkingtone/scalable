@@ -2,7 +2,9 @@ name: Update headlines
 
 on:
   schedule:
-    - cron: "7 * * * *"      # hourly (UTC); GitHub may run scheduled jobs late
+    # Twice an hour (UTC). GitHub delays and sometimes skips scheduled runs, so the
+    # extra slot keeps the site fresh even when one is dropped.
+    - cron: "11,41 * * * *"
   workflow_dispatch:
   push:
     branches: [main, master]
@@ -20,6 +22,7 @@ concurrency:
 jobs:
   build:
     runs-on: ubuntu-latest
+    timeout-minutes: 30
     steps:
       - uses: actions/checkout@v4
       - uses: actions/setup-python@v5
@@ -32,12 +35,20 @@ jobs:
         env:
           ANTHROPIC_API_KEY: ${{ secrets.ANTHROPIC_API_KEY }}
       - name: Commit updated headlines
+        # Saving the headlines to the repo is a convenience; publishing must not depend on it.
+        continue-on-error: true
         run: |
           git config user.name "scalable-bot"
           git config user.email "scalable-bot@users.noreply.github.com"
           git add web/data data/ai_cache.json 2>/dev/null || git add web/data
-          git diff --cached --quiet || git commit -m "Update headlines $(date -u +'%F %H:%M')"
-          git push
+          git diff --cached --quiet && exit 0
+          git commit -m "Update headlines $(date -u +'%F %H:%M')"
+          for i in 1 2 3; do
+            git push && exit 0
+            git pull --rebase -X theirs origin "${GITHUB_REF_NAME}" || git rebase --abort
+            sleep 5
+          done
+          exit 1
       - uses: actions/upload-pages-artifact@v3
         with:
           path: web
