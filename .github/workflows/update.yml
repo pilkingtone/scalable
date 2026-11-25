@@ -14,6 +14,7 @@ permissions:
   contents: write
   pages: write
   id-token: write
+  actions: write
 
 concurrency:
   group: update
@@ -62,3 +63,22 @@ jobs:
     steps:
       - id: deployment
         uses: actions/deploy-pages@v4
+
+  # GitHub runs scheduled jobs late or not at all (often only every 8-12 hours), so
+  # after each publish we wait, then start the next update ourselves. The schedule
+  # above stays as a backup that restarts the chain if it ever stops.
+  next:
+    needs: deploy
+    if: always() && github.ref_name == 'master'
+    runs-on: ubuntu-latest
+    timeout-minutes: 40
+    steps:
+      - run: sleep 1200
+      - name: Start the next update (unless one is already waiting)
+        env:
+          GH_TOKEN: ${{ github.token }}
+          GH_REPO: ${{ github.repository }}
+        run: |
+          others=$(gh run list --workflow update.yml --limit 20 --json databaseId,status \
+            -q "[.[] | select(.databaseId != ${{ github.run_id }}) | select(.status != \"completed\")] | length")
+          if [ "$others" -eq 0 ]; then gh workflow run update.yml --ref master; else echo "$others run(s) already pending"; fi
