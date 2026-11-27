@@ -172,6 +172,47 @@ def _cap(stories: list[dict], cfg: dict) -> list[dict]:
     return [s for s in stories if s["id"] in keep]
 
 
+# Shopping "deal posts" (price drops, coupon roundups, "best Black Friday deals") are
+# left out. Business news that merely uses the word "deal" (merger, trade or funding
+# deals, reporting about deals) is kept: a post must show a price or discount signal.
+DEAL_POST = re.compile(r"""(
+    \$\d[\d,.]*\s*off\b | \b\d{1,3}\s?%\s*off\b | \bsave\s+(up\s+to\s+)?(\$|\d|big) | \bsaves?\s+you\s+\$ |
+    \b(lowest|record[- ]low)\s+price\b | \bprice\s+drop\b | \bon\s+sale\b | \bdeal\s+alert\b | \bcoupons?\b |
+    \bpromo\s+codes?\b |
+    \b(black\s+friday|cyber\s+monday|prime\s+day|early|holiday|labor\s+day|memorial\s+day|presidents'?\s+day)(\s+\d{4})?\s+deal\s*: |
+    \bbest\b[^.:;]{0,60}\bdeals\b | \bdeals\s+on\s+ | \bdeals?\s+(under|from|for)\s+(just\s+)?(\$|\d) |
+    \$\d[\d,]*\s+(price\s+cut|discount) | \b\d{1,3}\s?%\s+discount | \bdiscounts?\b[^.]{0,60}\bby\s+\$ |
+    \bbest[- ]ever\s+price | \bdeal\s+is\s+back | \bnow\s+(just\s+|only\s+)?\$\d |
+    \b(black\s+friday|cyber\s+monday|prime\s+day)\b[\w\s'’-]{0,30}\bdeals\b\s*(\d{4}|:|—|–|-|$) |
+    \b(black\s+friday|cyber\s+monday)\s+(offer|sale\s+is\s+live) | \bsave\s+over\s+\d | \$\d[\d,]*\s+savings |
+    \bdeals\s+(from|now\s+live|and\s+freebies) | \b(black\s+friday|cyber\s+monday|prime\s+day)\s+(sale|price|deal)\b |
+    \bthis\s+(black\s+friday|cyber\s+monday|prime\s+day)\b | \bfor\s+this\s+year'?’?s\s+black\s+friday\b |
+    \bbuy\s+in\s+black\s+friday\b |
+    \bdeals?\s+(are|is)\s+(live|here|popping) | \bdeals?\s+(worth|you\s+can|to\s+shop|to\s+grab|we\s+found) |
+    \b\d+\+?\s+(best\s+)?[\w\s'-]{0,30}deals\b | \bunder\s+\$\d+\b
+)""", re.I | re.X)
+# Price wording that is also normal in market news ("shares fall to $150"): counts only
+# when the headline isn't about markets.
+DEAL_PRICE = re.compile(r"""(
+    \b(drops?|falls?|dips?|down|slashed|plunges?)\s+to\s+(just\s+|only\s+|best\s+|its\s+lowest\s+)?\$ |
+    \bfor\s+(just\s+|only\s+)?\$\d[\d,]*\.\d\d\b | \bfor\s+(just|only)\s+\$\d |
+    \bfor\s+\$\d[\d,]*\s+(during|at|on|with|this|in) | \bprice\s+cut\b | \bless\s+than\s+\$\d | \bat\s+\$\d[\d,]*\s+for\b | \bis\s+(just\s+|only\s+)?\$\d[\d,]*\s+(with|at|during|on|for)
+)""", re.I | re.X)
+# Business news about deals (mergers, funding) is never a shopping post.
+NOT_DEAL = re.compile(r"\b(funding|rounds?|raises?|raised|mergers?|acquisitions?|acquire[sd]?|takeover|explores|"
+                      r"talks|antitrust|valuation|study|report finds|survey)\b", re.I)
+MARKET_WORDS = re.compile(r"\b(shares?|stocks?|bitcoin|ether|crypto\w*|oil|gold|index|nasdaq|dow|s&p|bonds?|yields?|"
+                          r"valuation|market cap|price target|ipo)\b", re.I)
+
+
+def is_deal_post(title: str) -> bool:
+    if NOT_DEAL.search(title):
+        return False
+    if DEAL_POST.search(title):
+        return True
+    return bool(DEAL_PRICE.search(title)) and not MARKET_WORDS.search(title)
+
+
 def run(out_dir: Path = OUT_DIR, max_age_hours: float = 0.5) -> dict:
     cfg = json.loads(CONFIG.read_text())
     stale = datetime.now(timezone.utc) - timedelta(days=cfg.get("max_age_days", 10))
@@ -194,7 +235,7 @@ def run(out_dir: Path = OUT_DIR, max_age_hours: float = 0.5) -> dict:
     # Fetch in parallel (different hosts, mostly); results keep config order.
     with ThreadPoolExecutor(max_workers=10) as pool:
         results = list(pool.map(fetch, cfg["sources"]))
-    fetched = [(src, items) for src, items, err in results if err is None]
+    fetched = [(src, [i for i in items if not is_deal_post(i["title"])]) for src, items, err in results if err is None]
     warnings = [err for _, _, err in results if err]
     now = datetime.now(timezone.utc)
     sources, top = compile_sources(fetched, cfg, now)

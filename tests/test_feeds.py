@@ -232,3 +232,52 @@ def test_nvidia_ai_stories_lean_tech():
     fetched += [(_src(f"Tech filler {i}", "tech"), []) for i in range(70)]
     top = feeds.cluster_stories(fetched, CLUSTER_CFG, now)[0]
     assert top["n_sources"] == 2 and top["topics"] == ["tech"]      # AI outweighs "CEO" and business outlets
+
+
+@pytest.mark.parametrize("title", [
+    "Apple Watch Ultra 4 falls to best $649.99 price with Amazon's Thanksgiving deal",
+    "The Best Black Friday Headphone Deals: Save up to $160 From Bose, Sony, and Apple",
+    "Black Friday deals under $25: 11 can't-miss tech bargains at Amazon",
+    "The Sonos Arc Ultra Soundbar Is $250 Off During Black Friday",
+    "Samsung's Galaxy Buds 4 Pro are down to $170 for Black Friday",
+    "Black Friday 2026 deal: Sony WH-1000XM4C wireless headphones are 34% off",
+    "The 41 best Black Friday tech deals actually worth buying",
+    "Black Friday TV deals are live: Get an OLED TV for $799",
+    "Best Black Friday VPN deals: Save big on a privacy essential",
+    "Ditch the Microsoft 365 bill and own an Office Pro 2021 license for $22.97",
+    "Couples' favorite The WinkBed gets a $942 price cut for Black Friday",
+    "Amazon Discounts All MacBook Neo Models by $99 for Black Friday",
+    "Apple Watch Ultra 4 Hits New Best-Ever Price of $649.99 for Black Friday",
+    "Black Friday US smartwatch deals 2026 — all picked by a wearable tech expert",
+    "Black Friday Week deals: Pixel Watch 5 now $285, Pixelsnap Ring Stand",
+    "Dyson may have just won Black Friday with a 59% discount on the V8 Cyclone",
+    "MacBook Air Black Friday Deals Now Live With Massive $399 Savings",
+    "Sonos Arc Ultra soundbar gets a tempting Black Friday price cut at Amazon",
+    "The Fitbit Charge 6 is less than $125 this Black Friday",
+    "I'm a Nintendo Switch super-fan. Here are 10 gifts I'd buy this Black Friday",
+])
+def test_deal_posts_are_dropped(title):
+    assert feeds.is_deal_post(title)
+
+
+@pytest.mark.parametrize("title", [
+    "Japan Tobacco, Altria Explore Imperial Brands Takeover",
+    "SpaceX secures $44 billion funding deal to snap up Nvidia chips",
+    "Trump proposes a new wave of tariffs in trade deal talks with China",
+    "Amazon Called Them Black Friday Deals. Nearly 1 in 3 Cost the Same or More, New Study Finds",
+    "What stores are open on Black Friday? Here are the hours.",
+    "Amazon workers around the world plan strikes and protests on Black Friday",
+    "Nvidia says it won't reinstate Huang as it reports soaring sales",
+    "Stocks slide as Fed signals fewer rate cuts",
+    "Nvidia shares fall to $150 as investors weigh China curbs",
+    "Bitcoin dips to $80,000 after Fed comments",
+    "Marlboro Maker Altria Explores Deal for Rival Imperial Brands",
+    "The Week's 10 Biggest Funding Rounds: $400M For Neurotech Leads, Followed By Big Deals For AI",
+    "CrowdStrike's Zscaler deal aims to give security teams a single kill switch",
+    "Fake online stores may fool AI shopping bots on Black Friday",
+    "Your holiday shopping data needs a cleanup before Black Friday",
+    "U.S. tariff-hike threats pile pressure on partners to sign trade deals",
+    "Ministry of Defence signs £8.7bn deal with Babcock to maintain submarines",
+])
+def test_business_news_with_deal_words_is_kept(title):
+    assert not feeds.is_deal_post(title)
