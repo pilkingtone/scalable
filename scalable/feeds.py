@@ -286,8 +286,60 @@ returns report reports market markets stock stocks shares sale sales best top bi
 plan plans billion million price prices tech new first launch launches""".split())
 
 
+# What each topic's headlines are about. Used to give every story one home topic.
+TOPIC_WORDS = {
+    "tech": r"\b(ai|a\.i\.|artificial intelligence|openai|chatgpt|anthropic|gemini|llms?|chatbots?|software|apps?|app store|"
+            r"chips?|semiconductors?|nvidia|gpus?|iphones?|ipads?|macs?|android|smartphones?|laptops?|gadgets?|wearables?|"
+            r"google|apple|microsoft|meta|amazon web services|aws|cloud|data cent(er|re)s?|cyber\w*|hack(s|ers?|ed)?|"
+            r"breach|ransomware|malware|robots?|robotics|drones?|spacex|nasa|satellites?|starlink|internet|browser|"
+            r"social media|tiktok|instagram|youtube|x\.com|gaming|video ?games?|xbox|playstation|nintendo|vr|headsets?|"
+            r"quantum|algorithm|tech|technology|startups?|developers?|open[- ]source|linux|windows|ios)\b",
+    "business": r"\b(ceos?|chief executive|executives?|company|companies|corporate|firms?|deal|merger|mergers|acquisitions?|"
+                r"acquire[sd]?|buyout|takeover|retail(ers?)?|brands?|consumers?|sales|revenue|profits?|layoffs?|jobs cuts?|"
+                r"unions?|strikes?|workers|employees|airlines?|automakers?|boeing|walmart|target|costco|starbucks|"
+                r"restaurants?|bankrupt\w*|board|shareholders?|lawsuits?|settlement|antitrust|ftc|pricing|prices|"
+                r"supply chain|manufactur\w*|shopping|shoppers?|black friday|cyber monday|holiday sales|stores?|business)\b",
+    "markets": r"\b(stocks?|shares|s&p|dow|nasdaq|wall street|markets?|investors?|fed|federal reserve|interest rates?|"
+               r"rate (cut|hike)s?|inflation|cpi|bonds?|treasur(y|ies)|yields?|economy|economic|gdp|recession|"
+               r"jobs report|unemployment|payrolls|earnings|ipos?|bitcoin|crypto\w*|oil prices|dollar|currenc\w+|"
+               r"mortgage rates?|housing market|tariffs?)\b",
+    "news": r"\b(trump|biden|vance|congress|senate|senators?|house speaker|lawmakers?|election|voters?|campaign|"
+            r"republicans?|democrats?|gop|white house|governor|mayor|supreme court|judge|court|trial|indicted|police|"
+            r"shooting|killed|dead|fire|storm|hurricane|ukraine|russia|israel|gaza|iran|war|military|pentagon|"
+            r"immigration|ice|deport\w*|fbi|doj|justice department)\b",
+    "ideas": r"\b(leaders?|leadership|managers?|management|strategy|strategic|culture|workplace|teams?|"
+             r"productivity|decision[- ]making|research shows|study finds|how to|lessons|careers?|negotiat\w+|"
+             r"innovation|organi[sz]ations?)\b",
+}
+_TOPIC_RX = {t: re.compile(rx, re.I) for t, rx in TOPIC_WORDS.items()}
+
+
+def _home_topic(members: list[dict], lead: dict, n_by_topic: dict[str, int]) -> str:
+    """One topic per story. Coverage counts (scaled so big topics with many sources
+    don't win on numbers alone), the lead outlet's topic, and what the headlines are
+    about all vote; a topic no outlet in the story belongs to needs strong evidence."""
+    srcs: dict[str, set] = {}
+    for m in members:
+        srcs.setdefault(m["topic"], set()).add(m["source"])
+    titles = [m["title"] for m in members]
+    best, best_score = lead["topic"], float("-inf")
+    for t in n_by_topic:
+        rx = _TOPIC_RX.get(t)
+        words = sum(len({m.group(0).lower() for m in rx.finditer(x)}) if rx else 0 for x in titles) / len(titles)
+        cover = len(srcs.get(t, ())) / max(1, n_by_topic[t]) ** 0.5
+        score = 3 * cover + (1.0 if t == lead["topic"] else 0) + 1.5 * words
+        if t not in srcs:
+            score -= 1.5           # nobody from this topic covered it: words alone must be convincing
+        if score > best_score:
+            best, best_score = t, score
+    return best
+
+
 def cluster_stories(fetched: list[tuple[dict, list[dict]]], cfg: dict, now: datetime) -> list[dict]:
     """Group recent items from every source into stories, ranked by coverage and recency."""
+    n_by_topic: dict[str, int] = {}
+    for src, _ in fetched:
+        n_by_topic[src["topic"]] = n_by_topic.get(src["topic"], 0) + 1
     # Slow-publishing topics (essays, research) get a longer window.
     hours = cfg.get("story_hours_by_topic", {})
     items = []
@@ -334,7 +386,7 @@ def cluster_stories(fetched: list[tuple[dict, list[dict]]], cfg: dict, now: date
         newest = max(m["published"] for m in ms)
         n_src = len({m["source"] for m in ms})
         age_h = (now - newest).total_seconds() / 3600
-        topics = sorted({m["topic"] for m in ms})
+        topics = [_home_topic(ms, lead, n_by_topic)]
         text = " ".join(m["title"] for m in ms)
         out.append({
             "id": _stable_id(lead["url"]),

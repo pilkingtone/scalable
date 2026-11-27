@@ -94,7 +94,7 @@ def test_cluster_groups_same_story_across_outlets():
     assert top["n_sources"] == 3 and top["hot"]
     assert top["lead"]["url"] == "https://a/1"                 # earliest report with a summary
     assert {m["source"] for m in top["more"]} == {"Outlet B", "Outlet C"}
-    assert top["topics"] == ["business", "tech"]
+    assert top["topics"] == ["business"]                       # one home topic: a board/CEO story is business
     assert top["updated"] == feeds._iso(NOW - timedelta(hours=1))
     titles = [s["lead"]["title"] for s in stories]
     assert "Apple ships new MacBook Air" in titles and "Old Nvidia board news" not in titles
@@ -198,3 +198,21 @@ def test_category_patterns_are_valid():
     assert pats["ai"].search("OpenAI launches a new model")
     assert pats["gadgets"].search("Apple Watch Series 12 review")
     assert not pats["ai"].search("Said the chairman")  # "ai" only as a whole word
+
+
+
+def test_each_story_gets_one_home_topic_by_subject():
+    now = NOW
+    def it(t, url):
+        return {"title": t, "url": url, "summary": "", "published": now - timedelta(hours=1)}
+    fetched = [
+        (_src("Biz 1", "business"), [it("Nvidia unveils new AI chips for data centers", "https://1/1")]),
+        (_src("Tech 1", "tech"), [it("Nvidia unveils new AI chips aimed at data centers", "https://2/1"),
+                                  it("Starbucks CEO announces store closures and layoffs", "https://2/2")]),
+        (_src("Biz 2", "business"), [it("Starbucks CEO announces store closures, layoffs", "https://3/2")]),
+        (_src("Mkt", "markets"), [it("Stocks slide as Fed signals fewer rate cuts", "https://4/1")]),
+    ]
+    by_title = {s["lead"]["title"]: s["topics"] for s in feeds.cluster_stories(fetched, CLUSTER_CFG, now)}
+    assert by_title["Nvidia unveils new AI chips for data centers"] == ["tech"]
+    assert by_title["Starbucks CEO announces store closures and layoffs"] == ["business"]
+    assert by_title["Stocks slide as Fed signals fewer rate cuts"] == ["markets"]
