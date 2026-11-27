@@ -312,6 +312,12 @@ TOPIC_WORDS = {
              r"innovation|organi[sz]ations?)\b",
 }
 _TOPIC_RX = {t: re.compile(rx, re.I) for t, rx in TOPIC_WORDS.items()}
+# Words that count double for a topic: AI pulls a story toward Tech even when it is
+# also about a company's business (e.g. Nvidia's AI chips vs. Nvidia's board).
+TOPIC_BOOST = {
+    "tech": re.compile(r"\b(ai|a\.i\.|artificial intelligence|openai|chatgpt|anthropic|gemini|llms?|chatbots?|"
+                       r"ai (chips?|models?|agents?)|generative|machine learning|gpus?|data cent(er|re)s?)\b", re.I),
+}
 
 
 def _home_topic(members: list[dict], lead: dict, n_by_topic: dict[str, int]) -> str:
@@ -325,7 +331,10 @@ def _home_topic(members: list[dict], lead: dict, n_by_topic: dict[str, int]) -> 
     best, best_score = lead["topic"], float("-inf")
     for t in n_by_topic:
         rx = _TOPIC_RX.get(t)
-        words = sum(len({m.group(0).lower() for m in rx.finditer(x)}) if rx else 0 for x in titles) / len(titles)
+        boost = TOPIC_BOOST.get(t)
+        words = sum((len({m.group(0).lower() for m in rx.finditer(x)}) if rx else 0)
+                    + (len({m.group(0).lower() for m in boost.finditer(x)}) if boost else 0)
+                    for x in titles) / len(titles)
         cover = len(srcs.get(t, ())) / max(1, n_by_topic[t]) ** 0.5
         score = 3 * cover + (1.0 if t == lead["topic"] else 0) + 1.5 * words
         if t not in srcs:

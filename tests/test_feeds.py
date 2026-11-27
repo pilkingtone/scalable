@@ -216,3 +216,19 @@ def test_each_story_gets_one_home_topic_by_subject():
     assert by_title["Nvidia unveils new AI chips for data centers"] == ["tech"]
     assert by_title["Starbucks CEO announces store closures and layoffs"] == ["business"]
     assert by_title["Stocks slide as Fed signals fewer rate cuts"] == ["markets"]
+
+
+
+def test_nvidia_ai_stories_lean_tech():
+    now = NOW
+    def it(t, url):
+        return {"title": t, "url": url, "summary": "", "published": now - timedelta(hours=1)}
+    fetched = [
+        (_src("Biz 1", "business"), [it("Nvidia CEO says AI demand for its chips is insatiable", "https://1/1")]),
+        (_src("Biz 2", "business"), [it("Nvidia CEO: AI demand for chips remains insatiable", "https://2/1")]),
+    ]
+    # Realistic source counts (about 20 business and 70 tech outlets) with nothing else to say.
+    fetched += [(_src(f"Biz filler {i}", "business"), []) for i in range(18)]
+    fetched += [(_src(f"Tech filler {i}", "tech"), []) for i in range(70)]
+    top = feeds.cluster_stories(fetched, CLUSTER_CFG, now)[0]
+    assert top["n_sources"] == 2 and top["topics"] == ["tech"]      # AI outweighs "CEO" and business outlets
